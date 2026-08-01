@@ -1,0 +1,70 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Inventory, StockMovement } from '../warehouses/entities';
+import { ProductsController } from './products.controller';
+import { ProductsService } from './products.service';
+import {
+  Product,
+  ProductCategory,
+  ProductSubCategory,
+  ProductBrand,
+  ProductVariant,
+  ProductVariantOption,
+  ProductAttribute,
+  ProductAttributeValue,
+  ProductImage,
+  ProductGallery,
+  ProductPrice,
+  ProductCost,
+  ProductInventory,
+  ProductBarcode,
+  ProductTag,
+  ProductReview,
+  ProductRating,
+  ProductFAQ,
+  ProductSEO,
+  ProductBundle,
+  ProductBundleItem,
+  ProductRecommendation,
+  ProductViewHistory,
+  ProductWishlist,
+  ProductComparison,
+} from './entities';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([
+      Product,
+      ProductCategory,
+      ProductSubCategory,
+      ProductBrand,
+      ProductVariant,
+      ProductVariantOption,
+      ProductAttribute,
+      ProductAttributeValue,
+      ProductImage,
+      ProductGallery,
+      ProductPrice,
+      ProductCost,
+      ProductInventory,
+      ProductBarcode,
+      ProductTag,
+      ProductReview,
+      ProductRating,
+      ProductFAQ,
+      ProductSEO,
+      ProductBundle,
+      ProductBundleItem,
+      ProductRecommendation,
+      ProductViewHistory,
+      ProductWishlist,
+      ProductComparison,
+      Inventory,
+      StockMovement,
+    ]),
+  ],
+  controllers: [ProductsController],
+  providers: [ProductsService],
+  exports: [ProductsService],
+})
+export class ProductsModule {}
