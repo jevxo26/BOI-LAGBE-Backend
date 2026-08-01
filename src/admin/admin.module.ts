@@ -9,6 +9,11 @@ import { WarehousesModule } from './warehouses/warehouses.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { ProductsModule } from './products/products.module';
 import { BooksModule } from './books/books.module';
+import { UsedBooksModule } from './used-books/used-books.module';
+import { DigitalContentModule } from './digital-content/digital-content.module';
+import { CustomOrdersModule } from './custom-orders/custom-orders.module';
+import { OrdersModule } from './orders/orders.module';
+import { DeliveryModule } from './delivery/delivery.module';
 import { AdminRoleGuard } from './common/guards/admin-role.guard';
 import { AdminAuditService } from './common/services/admin-audit.service';
 import { AuditLog, ActivityLog } from './rbac/entities';
@@ -30,6 +35,11 @@ import { AuditLog, ActivityLog } from './rbac/entities';
     InventoryModule,
     ProductsModule,
     BooksModule,
+    UsedBooksModule,
+    DigitalContentModule,
+    CustomOrdersModule,
+    OrdersModule,
+    DeliveryModule,
   ],
   providers: [AdminRoleGuard, AdminAuditService],
   exports: [AdminRoleGuard, AdminAuditService, RbacModule],
