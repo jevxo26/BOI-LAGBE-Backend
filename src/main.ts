@@ -92,7 +92,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document, { useGlobalPrefix: true });
 
-  const port = process.env.PORT ?? 4001;
+  const port = process.env.PORT ?? 3000;
   await app.listen(port);
   console.log(
     `🔒 Enterprise SaaS Security Active on http://localhost:${port}/api/v1`,

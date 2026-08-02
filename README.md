@@ -157,7 +157,7 @@ Copy `example.env` to `.env` and fill in real values. `.env` is git-ignored; **n
 | `DATABASE_URL` | PostgreSQL connection string (e.g., Neon) |
 | `JWT_SECRET` | Secret for access tokens (≥32 chars, random) |
 | `JWT_REFRESH_SECRET` | Secret for refresh tokens (different from `JWT_SECRET`) |
-| `PORT` | HTTP port (default `4001`) |
+| `PORT` | HTTP port (default `3000`) |
 | `NODE_ENV` | `development` / `production` / `test` — controls cookie `secure` flag and OTP debug output |
 | `ALLOWED_ORIGINS` | Comma-separated CORS origins |
 

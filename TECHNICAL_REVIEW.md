@@ -149,7 +149,7 @@ All core authentication business logic is located in `src/auth/auth.service.ts`:
 
 ## 6. API Route Reference & Security Matrix
 
-Base Path: `http://localhost:4001/api/v1`
+Base Path: `http://localhost:3000/api/v1`
 
 | Method | Endpoint | Security Level | Auth Required | Description |
 |---|---|---|---|---|

@@ -26,7 +26,7 @@
 
 ## 2. Scope of Testing
 
-- **Environment:** Live HTTP tests against the built backend (isolated test instance on port 4002, shared Neon dev DB). User's running server on port 4001 was left untouched.
+- **Environment:** Live HTTP tests against the built backend (isolated test instance on port 4002, shared Neon dev DB). User's running server on port 3000 was left untouched.
 - **Test methods:** `curl` HTTP calls covering status codes, response bodies, and headers; code review of controllers, services, DTOs, guards, and entities.
 - **Coverage:**
   - All **19 controllers** (root, auth, 17 admin modules) inventoried — every route mapped.
@@ -244,7 +244,7 @@ QA test data (6 test users including the pre-fix "evil admin", 2 QA roles) was *
 2. `npm run migration:run` (applies the initial schema baseline)
 3. `npm run seed` (creates system roles + modules; set `BOOTSTRAP_ADMIN_*` first)
 4. Set `NODE_ENV=production`, strong `JWT_SECRET`/`JWT_REFRESH_SECRET`, real CORS origins
-5. Restart the existing dev server (port 4001) — it still runs the **pre-fix** build
+5. Restart the existing dev server (port 3000) — it still runs the **pre-fix** build
 
 ---
 
