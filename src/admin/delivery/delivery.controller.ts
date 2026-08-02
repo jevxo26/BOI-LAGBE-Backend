@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { DeliveryService } from './delivery.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -17,6 +19,8 @@ import { AddDeliveryTrackingDto } from './dto/add-delivery-tracking.dto';
 
 // All delivery routes require authentication (global StrictJwtAuthGuard) AND
 // the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
+@ApiTags('Admin - Delivery')
+@ApiBearerAuth()
 @Controller('admin/delivery')
 @AdminOnly()
 export class DeliveryController {
@@ -28,18 +32,18 @@ export class DeliveryController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.deliveryService.findById(id);
   }
 
   @Get(':id/tracking')
-  async findTracking(@Param('id') id: string) {
+  async findTracking(@Param('id', ParseUUIDPipe) id: string) {
     return this.deliveryService.findTracking(id);
   }
 
   @Patch(':id/status')
   async updateStatus(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateDeliveryStatusDto,
     @Req() req: AdminRequest,
   ) {
@@ -48,7 +52,7 @@ export class DeliveryController {
 
   @Post(':id/tracking')
   async addTracking(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: AddDeliveryTrackingDto,
     @Req() req: AdminRequest,
   ) {

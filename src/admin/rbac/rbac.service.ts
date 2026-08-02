@@ -345,6 +345,16 @@ export class RbacService {
     const saved =
       rows.length > 0 ? await this.userRoleRepository.save(rows) : [];
 
+    // Sync the user's `roles` simple-array (the source of the JWT `roles`
+    // claim checked by AdminRoleGuard) so RBAC assignments actually take
+    // effect on the next login / token issue.
+    const roleNames = roles.map((role) => role.name);
+    const mergedRoles = Array.from(new Set([...(user.roles ?? []), ...roleNames]));
+    if (mergedRoles.length !== (user.roles ?? []).length) {
+      user.roles = mergedRoles;
+      await this.userRepository.save(user);
+    }
+
     await this.logAction(
       req,
       'ASSIGN',

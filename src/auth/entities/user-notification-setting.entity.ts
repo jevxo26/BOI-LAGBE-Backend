@@ -16,7 +16,9 @@ export class UserNotificationSetting {
   @Column()
   userId: string;
 
-  @OneToOne(() => User, (user) => user.notificationSetting, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, (user) => user.notificationSetting, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'userId' })
   user: User;
 

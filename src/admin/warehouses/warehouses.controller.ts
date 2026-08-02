@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { WarehousesService } from './warehouses.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -18,6 +20,8 @@ import { ListWarehouseQueryDto } from './dto/list-warehouse-query.dto';
 // All warehouse routes require authentication (global StrictJwtAuthGuard) AND
 // the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before the parameterized :id route.
+@ApiTags('Admin - Warehouses')
+@ApiBearerAuth()
 @Controller('admin/warehouses')
 @AdminOnly()
 export class WarehousesController {
@@ -51,7 +55,7 @@ export class WarehousesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.warehousesService.findWarehouseById(id);
   }
 
@@ -62,7 +66,7 @@ export class WarehousesController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateWarehouseDto,
     @Req() req: AdminRequest,
   ) {

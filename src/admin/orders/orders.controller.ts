@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -26,6 +28,8 @@ import { ListOrderReportQueryDto } from './dto/list-order-report-query.dto';
 // All order routes require authentication (global StrictJwtAuthGuard) AND
 // the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before any parameterized :id route.
+@ApiTags('Admin - Orders')
+@ApiBearerAuth()
 @Controller('admin/orders')
 @AdminOnly()
 export class OrdersController {
@@ -56,13 +60,13 @@ export class OrdersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.ordersService.findOrderById(id);
   }
 
   @Patch(':id/status')
   async updateStatus(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateOrderStatusDto,
     @Req() req: AdminRequest,
   ) {
@@ -71,7 +75,7 @@ export class OrdersController {
 
   @Post(':id/assign-agent')
   async assignAgent(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: AssignAgentDto,
     @Req() req: AdminRequest,
   ) {
@@ -80,7 +84,7 @@ export class OrdersController {
 
   @Post(':id/assign-rider')
   async assignRider(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: AssignRiderDto,
     @Req() req: AdminRequest,
   ) {
@@ -89,7 +93,7 @@ export class OrdersController {
 
   @Post(':id/cancel')
   async cancelOrder(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CancelOrderDto,
     @Req() req: AdminRequest,
   ) {
@@ -98,7 +102,7 @@ export class OrdersController {
 
   @Post(':id/return')
   async createReturn(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateOrderReturnDto,
     @Req() req: AdminRequest,
   ) {
@@ -107,7 +111,7 @@ export class OrdersController {
 
   @Post(':id/refund')
   async createRefund(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateOrderRefundDto,
     @Req() req: AdminRequest,
   ) {
@@ -116,7 +120,7 @@ export class OrdersController {
 
   @Post(':id/exchange')
   async createExchange(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateOrderExchangeDto,
     @Req() req: AdminRequest,
   ) {

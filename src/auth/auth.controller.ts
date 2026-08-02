@@ -10,7 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterDto, LoginDto, SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
+import {
+  RegisterDto,
+  LoginDto,
+  SendOtpDto,
+  VerifyOtpDto,
+} from './dto/auth.dto';
 import type { Request, Response } from 'express';
 import { Public } from './guards/strict-jwt-auth.guard';
 import { JwtRefreshGuard } from './guards/jwt-auth.guard';
@@ -107,10 +112,7 @@ export class AuthController {
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(
-    @Req() req: any,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async logout(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     await this.authService.logout(req.user.id, req.user.sessionId);
 
     res.clearCookie('access_token');

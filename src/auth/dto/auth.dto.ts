@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength, IsArray, IsEnum } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class RegisterDto {
   @IsString()
@@ -21,9 +27,11 @@ export class RegisterDto {
   @MinLength(6)
   password: string;
 
-  @IsArray()
-  @IsOptional()
-  roles?: string[];
+  // NOTE: `roles` is intentionally NOT accepted here. Public registration
+  // always creates a STUDENT; ADMIN / SUPER_ADMIN (and any other role) can
+  // only be granted by an admin via POST /admin/rbac/users/:id/roles.
+  // Accepting a client-supplied `roles` array here was a privilege-escalation
+  // vulnerability (anyone could register as ADMIN).
 
   // Optional Student profile info during registration
   @IsString()
@@ -72,7 +80,8 @@ export class SendOtpDto {
 
   @IsString()
   @IsNotEmpty()
-  purpose: 'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
+  purpose:
+    'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
 }
 
 export class VerifyOtpDto {
@@ -86,5 +95,6 @@ export class VerifyOtpDto {
 
   @IsString()
   @IsNotEmpty()
-  purpose: 'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
+  purpose:
+    'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
 }

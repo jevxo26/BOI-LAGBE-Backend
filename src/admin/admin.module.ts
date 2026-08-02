@@ -14,6 +14,9 @@ import { DigitalContentModule } from './digital-content/digital-content.module';
 import { CustomOrdersModule } from './custom-orders/custom-orders.module';
 import { OrdersModule } from './orders/orders.module';
 import { DeliveryModule } from './delivery/delivery.module';
+import { FinanceModule } from './finance/finance.module';
+import { ReportsModule } from './reports/reports.module';
+import { CrmModule } from './crm/crm.module';
 import { AdminRoleGuard } from './common/guards/admin-role.guard';
 import { AdminAuditService } from './common/services/admin-audit.service';
 import { AuditLog, ActivityLog } from './rbac/entities';
@@ -40,6 +43,9 @@ import { AuditLog, ActivityLog } from './rbac/entities';
     CustomOrdersModule,
     OrdersModule,
     DeliveryModule,
+    FinanceModule,
+    ReportsModule,
+    CrmModule,
   ],
   providers: [AdminRoleGuard, AdminAuditService],
   exports: [AdminRoleGuard, AdminAuditService, RbacModule],

@@ -8,7 +8,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { RbacService } from './rbac.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -25,6 +27,8 @@ import { ListApprovalWorkflowQueryDto } from './dto/list-approval-workflow-query
 
 // All RBAC routes require authentication (global StrictJwtAuthGuard) AND the
 // ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
+@ApiTags('Admin - RBAC')
+@ApiBearerAuth()
 @Controller('admin/rbac')
 @AdminOnly()
 export class RbacController {
@@ -44,7 +48,7 @@ export class RbacController {
 
   @Patch('roles/:id')
   async updateRole(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateRoleDto,
     @Req() req: AdminRequest,
   ) {
@@ -52,7 +56,10 @@ export class RbacController {
   }
 
   @Delete('roles/:id')
-  async removeRole(@Param('id') id: string, @Req() req: AdminRequest) {
+  async removeRole(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AdminRequest,
+  ) {
     return this.rbacService.removeRole(id, req);
   }
 
@@ -75,7 +82,7 @@ export class RbacController {
 
   @Post('roles/:id/permissions')
   async assignPermissionsToRole(
-    @Param('id') roleId: string,
+    @Param('id', ParseUUIDPipe) roleId: string,
     @Body() dto: AssignPermissionsDto,
     @Req() req: AdminRequest,
   ) {
@@ -84,7 +91,7 @@ export class RbacController {
 
   @Post('users/:id/roles')
   async assignRolesToUser(
-    @Param('id') userId: string,
+    @Param('id', ParseUUIDPipe) userId: string,
     @Body() dto: AssignRoleDto,
     @Req() req: AdminRequest,
   ) {
@@ -120,7 +127,7 @@ export class RbacController {
 
   @Patch('approval-workflows/:id')
   async updateApprovalWorkflow(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateApprovalWorkflowDto,
     @Req() req: AdminRequest,
   ) {

@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { DigitalContentService } from './digital-content.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -28,6 +30,8 @@ import { ListDigitalReportQueryDto } from './dto/list-digital-report-query.dto';
 // All digital-content routes require authentication (global StrictJwtAuthGuard)
 // AND the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before any parameterized :id route.
+@ApiTags('Admin - Digital Content')
+@ApiBearerAuth()
 @Controller('admin/digital-content')
 @AdminOnly()
 export class DigitalContentController {
@@ -84,7 +88,7 @@ export class DigitalContentController {
 
   @Patch('reviews/:id/moderate')
   async moderateReview(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ModerateDigitalReviewDto,
     @Req() req: AdminRequest,
   ) {
@@ -108,7 +112,7 @@ export class DigitalContentController {
 
   @Post('exams/:id/publish')
   async publishExam(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: PublishDigitalContentDto,
     @Req() req: AdminRequest,
   ) {
@@ -148,7 +152,7 @@ export class DigitalContentController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.digitalContentService.findContentById(id);
   }
 
@@ -159,7 +163,7 @@ export class DigitalContentController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateDigitalContentDto,
     @Req() req: AdminRequest,
   ) {
@@ -168,7 +172,7 @@ export class DigitalContentController {
 
   @Post(':id/publish')
   async publish(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: PublishDigitalContentDto,
     @Req() req: AdminRequest,
   ) {
@@ -177,7 +181,7 @@ export class DigitalContentController {
 
   @Post(':id/access-grant')
   async grantAccess(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: GrantDigitalAccessDto,
     @Req() req: AdminRequest,
   ) {

@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsBoolean,
   IsEnum,
@@ -6,13 +6,23 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Matches,
   Min,
 } from 'class-validator';
 import { RoleStatus } from '../entities';
 
 export class CreateRoleDto {
+  // Normalize to UPPER_SNAKE so grants are deterministic: the AdminRoleGuard
+  // matches exact strings ('ADMIN', 'SUPER_ADMIN'). A role created as 'admin'
+  // (lowercase) would otherwise silently fail to grant admin access.
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim().toUpperCase() : value,
+  )
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[A-Z][A-Z0-9_]*$/, {
+    message: 'name must be UPPER_SNAKE_CASE (letters, digits, underscores)',
+  })
   name: string;
 
   @IsString()

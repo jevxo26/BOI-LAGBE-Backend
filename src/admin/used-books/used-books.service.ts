@@ -17,6 +17,7 @@ import { InspectItemDto } from './dto/inspect-item.dto';
 import { RepriceItemDto } from './dto/reprice-item.dto';
 import { PublishItemDto } from './dto/publish-item.dto';
 import { ListAuditLogQueryDto } from './dto/list-audit-log-query.dto';
+import { ListUsedBookAnalyticsQueryDto } from './dto/list-used-book-analytics-query.dto';
 import {
   UsedBookSellRequest,
   UsedBookSellRequestStatus,
@@ -43,6 +44,7 @@ import {
   UsedBookRejectReasonStatus,
   UsedBookReturn,
   UsedBookReturnStatus,
+  UsedBookAnalytics,
 } from './entities';
 
 // Buyback pipeline (item level):
@@ -86,6 +88,8 @@ export class UsedBooksService {
     private readonly rejectReasonRepository: Repository<UsedBookRejectReason>,
     @InjectRepository(UsedBookReturn)
     private readonly returnRepository: Repository<UsedBookReturn>,
+    @InjectRepository(UsedBookAnalytics)
+    private readonly analyticsRepository: Repository<UsedBookAnalytics>,
     private readonly dataSource: DataSource,
     private readonly adminAuditService: AdminAuditService,
   ) {}
@@ -737,6 +741,27 @@ export class UsedBooksService {
       where: Object.keys(where).length ? where : undefined,
     });
     const [items, total] = await this.historyRepository.findAndCount(options);
+    return { items, meta: QueryBuilder.buildMeta(query, total) };
+  }
+
+  // ---------- ANALYTICS ----------
+
+  // Aggregated used-book metrics (requests, offers, conversions, avg offer
+  // amounts) produced by reporting/BI jobs — admin read-only oversight.
+  async findAnalytics(query: ListUsedBookAnalyticsQueryDto) {
+    const where: Record<string, unknown> = {};
+    if (query.period) where.period = query.period;
+    if (query.metric) where.metric = query.metric;
+
+    const options = QueryBuilder.buildQueryOptions({
+      pagination: query,
+      dateRange: query,
+      dateField: 'createdAt',
+      searchableFields: ['period', 'metric'],
+      sortableFields: ['period', 'metric', 'createdAt'],
+      where: Object.keys(where).length ? where : undefined,
+    });
+    const [items, total] = await this.analyticsRepository.findAndCount(options);
     return { items, meta: QueryBuilder.buildMeta(query, total) };
   }
 

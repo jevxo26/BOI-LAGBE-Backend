@@ -42,7 +42,9 @@ export class UsedBookSellRequest {
   @Column({ type: 'timestamp', nullable: true })
   reviewedAt?: Date | null;
 
-  @Column({ nullable: true })
+  // Explicit type required: `string | null` emits design:type `Object`
+  // under emitDecoratorMetadata, which Postgres cannot map.
+  @Column({ type: 'varchar', nullable: true })
   rejectReasonId?: string | null;
 
   @CreateDateColumn()

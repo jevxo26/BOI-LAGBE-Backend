@@ -110,7 +110,9 @@ export class User {
   @OneToOne(() => UserNotificationSetting, (uns) => uns.user, { cascade: true })
   notificationSetting: UserNotificationSetting;
 
-  @OneToOne(() => UserIdentityVerification, (uiv) => uiv.user, { cascade: true })
+  @OneToOne(() => UserIdentityVerification, (uiv) => uiv.user, {
+    cascade: true,
+  })
   identityVerification: UserIdentityVerification;
 
   // 1:N Relationships

@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProductsService } from './products.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -21,6 +23,8 @@ import { ModerateProductReviewDto } from './dto/moderate-product-review.dto';
 // All product routes require authentication (global StrictJwtAuthGuard) AND
 // the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before the parameterized :id route.
+@ApiTags('Admin - Products')
+@ApiBearerAuth()
 @Controller('admin/products')
 @AdminOnly()
 export class ProductsController {
@@ -52,7 +56,7 @@ export class ProductsController {
 
   @Patch('reviews/:id/moderate')
   async moderateReview(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ModerateProductReviewDto,
     @Req() req: AdminRequest,
   ) {
@@ -67,7 +71,7 @@ export class ProductsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.productsService.findProductById(id);
   }
 
@@ -78,7 +82,7 @@ export class ProductsController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateProductDto,
     @Req() req: AdminRequest,
   ) {
@@ -87,7 +91,7 @@ export class ProductsController {
 
   @Post(':id/publish')
   async publish(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: PublishProductDto,
     @Req() req: AdminRequest,
   ) {
@@ -95,7 +99,10 @@ export class ProductsController {
   }
 
   @Post(':id/sync-inventory')
-  async syncInventory(@Param('id') id: string, @Req() req: AdminRequest) {
+  async syncInventory(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AdminRequest,
+  ) {
     return this.productsService.syncInventory(id, req);
   }
 }

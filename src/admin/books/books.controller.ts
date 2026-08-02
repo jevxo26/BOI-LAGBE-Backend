@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BooksService } from './books.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -22,6 +24,8 @@ import { CreateBookPriceHistoryDto } from './dto/create-book-price-history.dto';
 // All book routes require authentication (global StrictJwtAuthGuard) AND the
 // ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before the parameterized :id route.
+@ApiTags('Admin - Books')
+@ApiBearerAuth()
 @Controller('admin/books')
 @AdminOnly()
 export class BooksController {
@@ -68,7 +72,7 @@ export class BooksController {
 
   @Patch('reviews/:id/moderate')
   async moderateReview(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ModerateBookReviewDto,
     @Req() req: AdminRequest,
   ) {
@@ -83,7 +87,7 @@ export class BooksController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.booksService.findBookById(id);
   }
 
@@ -94,7 +98,7 @@ export class BooksController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateBookDto,
     @Req() req: AdminRequest,
   ) {
@@ -103,7 +107,7 @@ export class BooksController {
 
   @Post(':id/publish')
   async publish(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: PublishBookDto,
     @Req() req: AdminRequest,
   ) {
@@ -112,7 +116,7 @@ export class BooksController {
 
   @Post(':id/price-history')
   async addPriceHistory(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateBookPriceHistoryDto,
     @Req() req: AdminRequest,
   ) {

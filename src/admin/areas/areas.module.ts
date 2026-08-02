@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '../../auth/entities';
 import { AreasController } from './areas.controller';
 import { AreasService } from './areas.service';
 import {
@@ -38,6 +39,7 @@ import {
       StudentInstitute,
       InstituteAgent,
       InstituteDocument,
+      User,
     ]),
   ],
   controllers: [AreasController],

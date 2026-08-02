@@ -7,7 +7,12 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
-import { RegisterDto, LoginDto, SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
+import {
+  RegisterDto,
+  LoginDto,
+  SendOtpDto,
+  VerifyOtpDto,
+} from './dto/auth.dto';
 import * as bcrypt from 'bcryptjs';
 import type { Request } from 'express';
 import {
@@ -32,11 +37,16 @@ import {
 export class AuthService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    @InjectRepository(UserOTP) private readonly otpRepository: Repository<UserOTP>,
-    @InjectRepository(UserSession) private readonly sessionRepository: Repository<UserSession>,
-    @InjectRepository(UserLoginHistory) private readonly loginHistoryRepository: Repository<UserLoginHistory>,
-    @InjectRepository(UserDevice) private readonly deviceRepository: Repository<UserDevice>,
-    @InjectRepository(UserActivity) private readonly activityRepository: Repository<UserActivity>,
+    @InjectRepository(UserOTP)
+    private readonly otpRepository: Repository<UserOTP>,
+    @InjectRepository(UserSession)
+    private readonly sessionRepository: Repository<UserSession>,
+    @InjectRepository(UserLoginHistory)
+    private readonly loginHistoryRepository: Repository<UserLoginHistory>,
+    @InjectRepository(UserDevice)
+    private readonly deviceRepository: Repository<UserDevice>,
+    @InjectRepository(UserActivity)
+    private readonly activityRepository: Repository<UserActivity>,
     private readonly dataSource: DataSource,
     private readonly jwtService: JwtService,
   ) {}
@@ -48,13 +58,19 @@ export class AuthService {
 
   // 1. REGISTER USER
   async register(dto: RegisterDto) {
-    const existingPhone = await this.userRepository.findOne({ where: { phone: dto.phone } });
+    const existingPhone = await this.userRepository.findOne({
+      where: { phone: dto.phone },
+    });
     if (existingPhone) {
-      throw new BadRequestException('User with this phone number already exists');
+      throw new BadRequestException(
+        'User with this phone number already exists',
+      );
     }
 
     if (dto.email) {
-      const existingEmail = await this.userRepository.findOne({ where: { email: dto.email } });
+      const existingEmail = await this.userRepository.findOne({
+        where: { email: dto.email },
+      });
       if (existingEmail) {
         throw new BadRequestException('User with this email already exists');
       }
@@ -62,7 +78,10 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(dto.password, 10);
     const fullName = `${dto.firstName} ${dto.lastName}`.trim();
-    const userRoles = dto.roles && dto.roles.length > 0 ? dto.roles : ['STUDENT'];
+    // Public registration always creates a STUDENT account. Roles (ADMIN,
+    // SUPER_ADMIN, etc.) are granted exclusively by admins via
+    // POST /admin/rbac/users/:id/roles — never from the registration body.
+    const userRoles: string[] = ['STUDENT'];
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
@@ -85,7 +104,9 @@ export class AuthService {
       const savedUser = await queryRunner.manager.save(user);
 
       // Create 1:1 linked entities
-      await queryRunner.manager.save(queryRunner.manager.create(UserProfile, { userId: savedUser.id }));
+      await queryRunner.manager.save(
+        queryRunner.manager.create(UserProfile, { userId: savedUser.id }),
+      );
 
       if (userRoles.includes('STUDENT')) {
         await queryRunner.manager.save(
@@ -100,9 +121,17 @@ export class AuthService {
         );
       }
 
-      await queryRunner.manager.save(queryRunner.manager.create(UserSecurity, { userId: savedUser.id }));
-      await queryRunner.manager.save(queryRunner.manager.create(UserPreference, { userId: savedUser.id }));
-      await queryRunner.manager.save(queryRunner.manager.create(UserNotificationSetting, { userId: savedUser.id }));
+      await queryRunner.manager.save(
+        queryRunner.manager.create(UserSecurity, { userId: savedUser.id }),
+      );
+      await queryRunner.manager.save(
+        queryRunner.manager.create(UserPreference, { userId: savedUser.id }),
+      );
+      await queryRunner.manager.save(
+        queryRunner.manager.create(UserNotificationSetting, {
+          userId: savedUser.id,
+        }),
+      );
       await queryRunner.manager.save(
         queryRunner.manager.create(UserActivity, {
           userId: savedUser.id,
@@ -137,7 +166,9 @@ export class AuthService {
     const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
-    const user = await this.userRepository.findOne({ where: { phone: dto.phone } });
+    const user = await this.userRepository.findOne({
+      where: { phone: dto.phone },
+    });
 
     const otpRecord = this.otpRepository.create({
       userId: user?.id,
@@ -208,7 +239,9 @@ export class AuthService {
     }
 
     if (user.security?.accountLocked) {
-      throw new UnauthorizedException('Account locked due to multiple failed login attempts');
+      throw new UnauthorizedException(
+        'Account locked due to multiple failed login attempts',
+      );
     }
 
     const isMatch = await bcrypt.compare(dto.password, user.password);
@@ -228,7 +261,8 @@ export class AuthService {
       await this.dataSource.getRepository(UserSecurity).save(user.security);
     }
 
-    const ipAddress = req.ip || (req.headers['x-forwarded-for'] as string) || '127.0.0.1';
+    const ipAddress =
+      req.ip || (req.headers['x-forwarded-for'] as string) || '127.0.0.1';
     const userAgent = req.headers['user-agent'] || 'Unknown';
 
     await this.loginHistoryRepository.save(
@@ -263,7 +297,13 @@ export class AuthService {
     });
     const savedSession = await this.sessionRepository.save(session);
 
-    const tokens = await this.generateTokens(user.id, user.email, user.phone, user.roles, savedSession.id);
+    const tokens = await this.generateTokens(
+      user.id,
+      user.email,
+      user.phone,
+      user.roles,
+      savedSession.id,
+    );
 
     savedSession.accessToken = tokens.accessToken;
     savedSession.refreshToken = tokens.refreshToken;
@@ -292,14 +332,24 @@ export class AuthService {
   }
 
   // 5. REFRESH TOKEN
-  async refreshToken(userId: string, sessionId: string, oldRefreshToken: string) {
+  async refreshToken(
+    userId: string,
+    sessionId: string,
+    oldRefreshToken: string,
+  ) {
     const session = await this.sessionRepository.findOne({
       where: { id: sessionId },
       relations: { user: true },
     });
 
-    if (!session || session.status !== SessionStatus.ACTIVE || session.refreshToken !== oldRefreshToken) {
-      throw new UnauthorizedException('Invalid or expired refresh token session');
+    if (
+      !session ||
+      session.status !== SessionStatus.ACTIVE ||
+      session.refreshToken !== oldRefreshToken
+    ) {
+      throw new UnauthorizedException(
+        'Invalid or expired refresh token session',
+      );
     }
 
     const tokens = await this.generateTokens(

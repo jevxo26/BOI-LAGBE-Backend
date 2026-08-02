@@ -1,0 +1,2873 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+.prettierrc
+eslint.config.mjs
+example.env
+nest-cli.json
+package.json
+README.md
+src/app.controller.spec.ts
+src/app.controller.ts
+src/app.module.ts
+src/app.service.ts
+src/auth/auth.controller.ts
+src/auth/auth.module.ts
+src/auth/auth.service.ts
+src/auth/dto/auth.dto.ts
+src/auth/entities/index.ts
+src/auth/entities/student-profile.entity.ts
+src/auth/entities/support-ticket.entity.ts
+src/auth/entities/user-activity.entity.ts
+src/auth/entities/user-address.entity.ts
+src/auth/entities/user-attachment.entity.ts
+src/auth/entities/user-device.entity.ts
+src/auth/entities/user-identity-verification.entity.ts
+src/auth/entities/user-login-history.entity.ts
+src/auth/entities/user-notification-setting.entity.ts
+src/auth/entities/user-otp.entity.ts
+src/auth/entities/user-preference.entity.ts
+src/auth/entities/user-profile.entity.ts
+src/auth/entities/user-security.entity.ts
+src/auth/entities/user-session.entity.ts
+src/auth/entities/user-token.entity.ts
+src/auth/entities/user.entity.ts
+src/auth/guards/jwt-auth.guard.ts
+src/auth/guards/strict-jwt-auth.guard.ts
+src/auth/interceptors/token-required.interceptor.ts
+src/auth/strategies/jwt-refresh.strategy.ts
+src/auth/strategies/jwt.strategy.ts
+src/common/filters/global-exception.filter.ts
+src/main.ts
+TECHNICAL_REVIEW.md
+test/app.e2e-spec.ts
+test/jest-e2e.json
+tsconfig.build.json
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+# compiled output
+/dist
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented code leveraged by InstantBugs
+/lib-cov
+
+# Coverage directory used by tools like istanbul
+/coverage
+*.lcov
+
+# nyc test coverage
+/.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microservices debug logs
+.ndb
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Environment variables
+.env
+.env.production
+.env.staging
+.env.test
+.env.local
+.env.*.local
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build output
+.nuxt
+
+# Gatsby files
+.gatsby context
+
+# Serverless framework directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# Tern JS completion analyzer
+.tern-port
+
+# Stores VS Code versions available for testing
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Prisma generated outputs if any local sqlite / custom
+*.db
+*.db-journal
+</file>
+
+<file path=".prettierrc">
+{
+  "singleQuote": true,
+  "trailingComma": "all"
+}
+</file>
+
+<file path="eslint.config.mjs">
+// @ts-check
+import eslint from '@eslint/js';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  {
+    ignores: ['eslint.config.mjs'],
+  },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  eslintPluginPrettierRecommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+      sourceType: 'commonjs',
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-floating-promises': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
+    },
+  },
+);
+</file>
+
+<file path="nest-cli.json">
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true
+  }
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "boi-lagbe",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "^11.0.2",
+    "@nestjs/passport": "^11.0.5",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/typeorm": "^11.0.3",
+    "bcryptjs": "^3.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "cookie-parser": "^1.4.7",
+    "express-rate-limit": "^8.6.1",
+    "helmet": "^8.3.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.22.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "typeorm": "^1.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nestjs/testing": "^11.0.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.0",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/supertest": "^7.0.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
+    "globals": "^17.0.0",
+    "jest": "^30.0.0",
+    "prettier": "^3.4.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
+</file>
+
+<file path="src/app.controller.spec.ts">
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+describe('AppController', () => {
+  let appController: AppController;
+
+  beforeEach(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [AppController],
+      providers: [AppService],
+    }).compile();
+
+    appController = app.get<AppController>(AppController);
+  });
+
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
+  });
+});
+</file>
+
+<file path="src/app.controller.ts">
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service';
+
+@Controller()
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+}
+</file>
+
+<file path="src/app.module.ts">
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { APP_GUARD } from '@nestjs/core';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { StrictJwtAuthGuard } from './auth/guards/strict-jwt-auth.guard';
+import {
+  User,
+  UserProfile,
+  StudentProfile,
+  UserAddress,
+  UserDevice,
+  UserSession,
+  UserOTP,
+  UserToken,
+  UserLoginHistory,
+  UserSecurity,
+  UserPreference,
+  UserNotificationSetting,
+  UserIdentityVerification,
+  UserAttachment,
+  UserActivity,
+  SupportTicket,
+} from './auth/entities';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get<string>('DATABASE_URL'),
+        ssl: {
+          rejectUnauthorized: false,
+        },
+        entities: [
+          User,
+          UserProfile,
+          StudentProfile,
+          UserAddress,
+          UserDevice,
+          UserSession,
+          UserOTP,
+          UserToken,
+          UserLoginHistory,
+          UserSecurity,
+          UserPreference,
+          UserNotificationSetting,
+          UserIdentityVerification,
+          UserAttachment,
+          UserActivity,
+          SupportTicket,
+        ],
+        synchronize: true,
+      }),
+    }),
+    AuthModule,
+  ],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    // Enable Global Strict Auth Guard: EVERY endpoint is protected by default unless decorated with @Public()
+    {
+      provide: APP_GUARD,
+      useClass: StrictJwtAuthGuard,
+    },
+  ],
+})
+export class AppModule {}
+</file>
+
+<file path="src/app.service.ts">
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class AppService {
+  getHello(): string {
+    return 'Hello World!';
+  }
+}
+</file>
+
+<file path="src/auth/auth.controller.ts">
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Req,
+  Res,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { RegisterDto, LoginDto, SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
+import type { Request, Response } from 'express';
+import { Public } from './guards/strict-jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-auth.guard';
+
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
+
+  @Public()
+  @Post('register')
+  async register(@Body() dto: RegisterDto) {
+    return this.authService.register(dto);
+  }
+
+  @Public()
+  @Post('send-otp')
+  async sendOtp(@Body() dto: SendOtpDto) {
+    return this.authService.sendOtp(dto);
+  }
+
+  @Public()
+  @Post('verify-otp')
+  async verifyOtp(@Body() dto: VerifyOtpDto) {
+    return this.authService.verifyOtp(dto);
+  }
+
+  @Public()
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async login(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+    @Body() dto: LoginDto,
+  ) {
+    const result = await this.authService.login(dto, req);
+
+    res.cookie('access_token', result.tokens.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.cookie('refresh_token', result.tokens.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return {
+      message: 'Login successful',
+      user: result.user,
+      accessToken: result.tokens.accessToken,
+      refreshToken: result.tokens.refreshToken,
+    };
+  }
+
+  @Public()
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh-token')
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(
+    @Req() req: any,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const user = req.user;
+    const tokens = await this.authService.refreshToken(
+      user.id,
+      user.sessionId,
+      user.refreshToken,
+    );
+
+    res.cookie('access_token', tokens.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.cookie('refresh_token', tokens.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return {
+      message: 'Token refreshed successfully',
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+    };
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  async logout(
+    @Req() req: any,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    await this.authService.logout(req.user.id, req.user.sessionId);
+
+    res.clearCookie('access_token');
+    res.clearCookie('refresh_token');
+
+    return { message: 'Logged out successfully' };
+  }
+
+  @Get('me')
+  async getProfile(@Req() req: any) {
+    return this.authService.getProfile(req.user.id);
+  }
+}
+</file>
+
+<file path="src/auth/auth.module.ts">
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
+import { StrictJwtAuthGuard } from './guards/strict-jwt-auth.guard';
+import {
+  User,
+  UserProfile,
+  StudentProfile,
+  UserAddress,
+  UserDevice,
+  UserSession,
+  UserOTP,
+  UserToken,
+  UserLoginHistory,
+  UserSecurity,
+  UserPreference,
+  UserNotificationSetting,
+  UserIdentityVerification,
+  UserAttachment,
+  UserActivity,
+  SupportTicket,
+} from './entities';
+
+@Module({
+  imports: [
+    PassportModule,
+    JwtModule.register({}),
+    TypeOrmModule.forFeature([
+      User,
+      UserProfile,
+      StudentProfile,
+      UserAddress,
+      UserDevice,
+      UserSession,
+      UserOTP,
+      UserToken,
+      UserLoginHistory,
+      UserSecurity,
+      UserPreference,
+      UserNotificationSetting,
+      UserIdentityVerification,
+      UserAttachment,
+      UserActivity,
+      SupportTicket,
+    ]),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, JwtStrategy, JwtRefreshStrategy, StrictJwtAuthGuard],
+  exports: [AuthService, StrictJwtAuthGuard, JwtModule, TypeOrmModule],
+})
+export class AuthModule {}
+</file>
+
+<file path="src/auth/auth.service.ts">
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, DataSource } from 'typeorm';
+import { RegisterDto, LoginDto, SendOtpDto, VerifyOtpDto } from './dto/auth.dto';
+import * as bcrypt from 'bcryptjs';
+import type { Request } from 'express';
+import {
+  User,
+  UserProfile,
+  StudentProfile,
+  UserSecurity,
+  UserPreference,
+  UserNotificationSetting,
+  UserActivity,
+  UserOTP,
+  UserLoginHistory,
+  UserDevice,
+  UserSession,
+  OtpPurpose,
+  OtpStatus,
+  SessionStatus,
+  ActivityType,
+} from './entities';
+
+@Injectable()
+export class AuthService {
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(UserOTP) private readonly otpRepository: Repository<UserOTP>,
+    @InjectRepository(UserSession) private readonly sessionRepository: Repository<UserSession>,
+    @InjectRepository(UserLoginHistory) private readonly loginHistoryRepository: Repository<UserLoginHistory>,
+    @InjectRepository(UserDevice) private readonly deviceRepository: Repository<UserDevice>,
+    @InjectRepository(UserActivity) private readonly activityRepository: Repository<UserActivity>,
+    private readonly dataSource: DataSource,
+    private readonly jwtService: JwtService,
+  ) {}
+
+  private generateUserCode(): string {
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    return `BL-${randomNum}`;
+  }
+
+  // 1. REGISTER USER
+  async register(dto: RegisterDto) {
+    const existingPhone = await this.userRepository.findOne({ where: { phone: dto.phone } });
+    if (existingPhone) {
+      throw new BadRequestException('User with this phone number already exists');
+    }
+
+    if (dto.email) {
+      const existingEmail = await this.userRepository.findOne({ where: { email: dto.email } });
+      if (existingEmail) {
+        throw new BadRequestException('User with this email already exists');
+      }
+    }
+
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const fullName = `${dto.firstName} ${dto.lastName}`.trim();
+    const userRoles = dto.roles && dto.roles.length > 0 ? dto.roles : ['STUDENT'];
+
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      // Create User
+      const user = queryRunner.manager.create(User, {
+        userCode: this.generateUserCode(),
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        fullName: fullName,
+        email: dto.email,
+        phone: dto.phone,
+        password: hashedPassword,
+        roles: userRoles,
+        isActive: true,
+        isVerified: false,
+      });
+      const savedUser = await queryRunner.manager.save(user);
+
+      // Create 1:1 linked entities
+      await queryRunner.manager.save(queryRunner.manager.create(UserProfile, { userId: savedUser.id }));
+
+      if (userRoles.includes('STUDENT')) {
+        await queryRunner.manager.save(
+          queryRunner.manager.create(StudentProfile, {
+            userId: savedUser.id,
+            studentId: dto.studentId,
+            instituteId: dto.instituteId,
+            campusId: dto.campusId,
+            departmentId: dto.departmentId,
+            programId: dto.programId,
+          }),
+        );
+      }
+
+      await queryRunner.manager.save(queryRunner.manager.create(UserSecurity, { userId: savedUser.id }));
+      await queryRunner.manager.save(queryRunner.manager.create(UserPreference, { userId: savedUser.id }));
+      await queryRunner.manager.save(queryRunner.manager.create(UserNotificationSetting, { userId: savedUser.id }));
+      await queryRunner.manager.save(
+        queryRunner.manager.create(UserActivity, {
+          userId: savedUser.id,
+          activity: ActivityType.REGISTER,
+        }),
+      );
+
+      await queryRunner.commitTransaction();
+
+      return {
+        message: 'User registered successfully',
+        user: {
+          id: savedUser.id,
+          userCode: savedUser.userCode,
+          fullName: savedUser.fullName,
+          email: savedUser.email,
+          phone: savedUser.phone,
+          roles: savedUser.roles,
+          status: savedUser.status,
+        },
+      };
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  // 2. SEND OTP
+  async sendOtp(dto: SendOtpDto) {
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    const user = await this.userRepository.findOne({ where: { phone: dto.phone } });
+
+    const otpRecord = this.otpRepository.create({
+      userId: user?.id,
+      phone: dto.phone,
+      otp: otpCode,
+      purpose: dto.purpose as OtpPurpose,
+      expiresAt: expiresAt,
+      status: OtpStatus.PENDING,
+    });
+    await this.otpRepository.save(otpRecord);
+
+    return {
+      message: 'OTP sent successfully',
+      otpDebug: process.env.NODE_ENV === 'development' ? otpCode : undefined,
+    };
+  }
+
+  // 3. VERIFY OTP
+  async verifyOtp(dto: VerifyOtpDto) {
+    const otpRecord = await this.otpRepository.findOne({
+      where: {
+        phone: dto.phone,
+        purpose: dto.purpose as OtpPurpose,
+        status: OtpStatus.PENDING,
+      },
+      order: { createdAt: 'DESC' },
+    });
+
+    if (!otpRecord) {
+      throw new BadRequestException('No pending OTP found');
+    }
+
+    if (new Date() > otpRecord.expiresAt) {
+      otpRecord.status = OtpStatus.EXPIRED;
+      await this.otpRepository.save(otpRecord);
+      throw new BadRequestException('OTP has expired');
+    }
+
+    if (otpRecord.otp !== dto.otp) {
+      otpRecord.attemptCount += 1;
+      await this.otpRepository.save(otpRecord);
+      throw new BadRequestException('Invalid OTP code');
+    }
+
+    otpRecord.status = OtpStatus.VERIFIED;
+    otpRecord.verifiedAt = new Date();
+    await this.otpRepository.save(otpRecord);
+
+    if (otpRecord.userId) {
+      await this.userRepository.update(otpRecord.userId, {
+        isVerified: true,
+        phoneVerifiedAt: new Date(),
+      });
+    }
+
+    return { message: 'OTP verified successfully' };
+  }
+
+  // 4. LOGIN USER & GENERATE COOKIE TOKENS
+  async login(dto: LoginDto, req: Request) {
+    const user = await this.userRepository.findOne({
+      where: [{ email: dto.identity }, { phone: dto.identity }],
+      relations: { security: true },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    if (user.security?.accountLocked) {
+      throw new UnauthorizedException('Account locked due to multiple failed login attempts');
+    }
+
+    const isMatch = await bcrypt.compare(dto.password, user.password);
+    if (!isMatch) {
+      if (user.security) {
+        user.security.failedLoginAttempt += 1;
+        if (user.security.failedLoginAttempt >= 5) {
+          user.security.accountLocked = true;
+        }
+        await this.dataSource.getRepository(UserSecurity).save(user.security);
+      }
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    if (user.security) {
+      user.security.failedLoginAttempt = 0;
+      await this.dataSource.getRepository(UserSecurity).save(user.security);
+    }
+
+    const ipAddress = req.ip || (req.headers['x-forwarded-for'] as string) || '127.0.0.1';
+    const userAgent = req.headers['user-agent'] || 'Unknown';
+
+    await this.loginHistoryRepository.save(
+      this.loginHistoryRepository.create({
+        userId: user.id,
+        ipAddress,
+        browser: userAgent,
+        status: 'SUCCESS',
+      }),
+    );
+
+    if (dto.deviceId) {
+      await this.deviceRepository.save({
+        id: dto.deviceId,
+        userId: user.id,
+        deviceId: dto.deviceId,
+        deviceName: dto.deviceName || 'Device',
+        ipAddress,
+        lastLoginAt: new Date(),
+      });
+    }
+
+    await this.userRepository.update(user.id, { lastLoginAt: new Date() });
+
+    const session = this.sessionRepository.create({
+      userId: user.id,
+      deviceId: dto.deviceId,
+      accessToken: '',
+      refreshToken: '',
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      status: SessionStatus.ACTIVE,
+    });
+    const savedSession = await this.sessionRepository.save(session);
+
+    const tokens = await this.generateTokens(user.id, user.email, user.phone, user.roles, savedSession.id);
+
+    savedSession.accessToken = tokens.accessToken;
+    savedSession.refreshToken = tokens.refreshToken;
+    await this.sessionRepository.save(savedSession);
+
+    await this.activityRepository.save(
+      this.activityRepository.create({
+        userId: user.id,
+        activity: ActivityType.LOGIN,
+        ipAddress,
+      }),
+    );
+
+    return {
+      user: {
+        id: user.id,
+        userCode: user.userCode,
+        fullName: user.fullName,
+        email: user.email,
+        phone: user.phone,
+        roles: user.roles,
+      },
+      tokens,
+      sessionId: savedSession.id,
+    };
+  }
+
+  // 5. REFRESH TOKEN
+  async refreshToken(userId: string, sessionId: string, oldRefreshToken: string) {
+    const session = await this.sessionRepository.findOne({
+      where: { id: sessionId },
+      relations: { user: true },
+    });
+
+    if (!session || session.status !== SessionStatus.ACTIVE || session.refreshToken !== oldRefreshToken) {
+      throw new UnauthorizedException('Invalid or expired refresh token session');
+    }
+
+    const tokens = await this.generateTokens(
+      session.user.id,
+      session.user.email,
+      session.user.phone,
+      session.user.roles,
+      session.id,
+    );
+
+    session.accessToken = tokens.accessToken;
+    session.refreshToken = tokens.refreshToken;
+    await this.sessionRepository.save(session);
+
+    return tokens;
+  }
+
+  // 6. LOGOUT
+  async logout(userId: string, sessionId?: string) {
+    if (sessionId) {
+      await this.sessionRepository.update(sessionId, {
+        status: SessionStatus.LOGGED_OUT,
+        logoutAt: new Date(),
+      });
+    }
+
+    await this.activityRepository.save(
+      this.activityRepository.create({
+        userId,
+        activity: ActivityType.LOGOUT,
+      }),
+    );
+
+    return { message: 'Logged out successfully' };
+  }
+
+  // 7. GET PROFILE WITH ALL RELATED SUB-OBJECTS
+  async getProfile(userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: {
+        profile: true,
+        studentProfile: true,
+        addresses: true,
+        devices: true,
+        security: true,
+        preference: true,
+        notificationSetting: true,
+        identityVerification: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  private async generateTokens(
+    userId: string,
+    email: string | undefined,
+    phone: string,
+    roles: string[],
+    sessionId: string,
+  ) {
+    const payload = { sub: userId, email, phone, roles, sessionId };
+
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: process.env.JWT_SECRET || 'supersecret_jwt_access_key',
+      expiresIn: '15m',
+    });
+
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: process.env.JWT_REFRESH_SECRET || 'supersecret_jwt_refresh_key',
+      expiresIn: '7d',
+    });
+
+    return { accessToken, refreshToken };
+  }
+}
+</file>
+
+<file path="src/auth/dto/auth.dto.ts">
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MinLength, IsArray, IsEnum } from 'class-validator';
+
+export class RegisterDto {
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsEmail()
+  @IsOptional()
+  email?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @MinLength(6)
+  password: string;
+
+  @IsArray()
+  @IsOptional()
+  roles?: string[];
+
+  // Optional Student profile info during registration
+  @IsString()
+  @IsOptional()
+  studentId?: string;
+
+  @IsString()
+  @IsOptional()
+  instituteId?: string;
+
+  @IsString()
+  @IsOptional()
+  campusId?: string;
+
+  @IsString()
+  @IsOptional()
+  departmentId?: string;
+
+  @IsString()
+  @IsOptional()
+  programId?: string;
+}
+
+export class LoginDto {
+  @IsString()
+  @IsNotEmpty()
+  identity: string; // email or phone
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+
+  @IsString()
+  @IsOptional()
+  deviceId?: string;
+
+  @IsString()
+  @IsOptional()
+  deviceName?: string;
+}
+
+export class SendOtpDto {
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  purpose: 'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
+}
+
+export class VerifyOtpDto {
+  @IsString()
+  @IsNotEmpty()
+  phone: string;
+
+  @IsString()
+  @IsNotEmpty()
+  otp: string;
+
+  @IsString()
+  @IsNotEmpty()
+  purpose: 'REGISTER' | 'LOGIN' | 'PASSWORD_RESET' | 'CHANGE_PHONE' | 'CHANGE_EMAIL';
+}
+</file>
+
+<file path="src/auth/entities/index.ts">
+export * from './user.entity';
+export * from './user-profile.entity';
+export * from './student-profile.entity';
+export * from './user-address.entity';
+export * from './user-device.entity';
+export * from './user-session.entity';
+export * from './user-otp.entity';
+export * from './user-token.entity';
+export * from './user-login-history.entity';
+export * from './user-security.entity';
+export * from './user-preference.entity';
+export * from './user-notification-setting.entity';
+export * from './user-identity-verification.entity';
+export * from './user-attachment.entity';
+export * from './user-activity.entity';
+export * from './support-ticket.entity';
+</file>
+
+<file path="src/auth/entities/student-profile.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('student_profiles')
+export class StudentProfile {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.studentProfile, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ nullable: true })
+  studentId?: string;
+
+  @Column({ nullable: true })
+  instituteId?: string;
+
+  @Column({ nullable: true })
+  campusId?: string;
+
+  @Column({ nullable: true })
+  departmentId?: string;
+
+  @Column({ nullable: true })
+  programId?: string;
+
+  @Column({ nullable: true })
+  semesterId?: string;
+
+  @Column({ nullable: true })
+  academicSessionId?: string;
+
+  @Column({ nullable: true })
+  batch?: string;
+
+  @Column({ nullable: true })
+  section?: string;
+
+  @Column({ nullable: true })
+  rollNumber?: string;
+
+  @Column({ nullable: true })
+  registrationNumber?: string;
+
+  @Column({ nullable: true })
+  studentType?: string;
+
+  @Column({ type: 'int', nullable: true })
+  graduationYear?: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/support-ticket.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum TicketCategory {
+  ACCOUNT = 'ACCOUNT',
+  ORDER = 'ORDER',
+  PAYMENT = 'PAYMENT',
+  BOOK = 'BOOK',
+  DELIVERY = 'DELIVERY',
+  PDF = 'PDF',
+  CUSTOM_PRODUCT = 'CUSTOM_PRODUCT',
+  OTHER = 'OTHER',
+}
+
+export enum TicketPriority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+  URGENT = 'URGENT',
+}
+
+export enum TicketStatus {
+  OPEN = 'OPEN',
+  IN_PROGRESS = 'IN_PROGRESS',
+  RESOLVED = 'RESOLVED',
+  CLOSED = 'CLOSED',
+}
+
+@Entity('support_tickets')
+export class SupportTicket {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ unique: true })
+  ticketNumber: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.supportTickets, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ type: 'enum', enum: TicketCategory })
+  category: TicketCategory;
+
+  @Column({ type: 'enum', enum: TicketPriority, default: TicketPriority.MEDIUM })
+  priority: TicketPriority;
+
+  @Column()
+  subject: string;
+
+  @Column({ type: 'text' })
+  description: string;
+
+  @Column({ type: 'enum', enum: TicketStatus, default: TicketStatus.OPEN })
+  status: TicketStatus;
+
+  @Column({ nullable: true })
+  assignedTo?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  closedAt?: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-activity.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum ActivityType {
+  REGISTER = 'REGISTER',
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+  PROFILE_UPDATED = 'PROFILE_UPDATED',
+  CHANGE_PASSWORD = 'CHANGE_PASSWORD',
+  CREATE_ORDER = 'CREATE_ORDER',
+  BOOK_REQUEST = 'BOOK_REQUEST',
+  SELL_BOOK = 'SELL_BOOK',
+  DOWNLOAD_PDF = 'DOWNLOAD_PDF',
+  CUSTOM_PRODUCT_ORDER = 'CUSTOM_PRODUCT_ORDER',
+}
+
+@Entity('user_activities')
+export class UserActivity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.activities, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ type: 'enum', enum: ActivityType })
+  activity: ActivityType;
+
+  @Column({ nullable: true })
+  referenceType?: string;
+
+  @Column({ nullable: true })
+  referenceId?: string;
+
+  @Column({ nullable: true })
+  device?: string;
+
+  @Column({ nullable: true })
+  ipAddress?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-address.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum AddressType {
+  HOME = 'HOME',
+  HOSTEL = 'HOSTEL',
+  CAMPUS = 'CAMPUS',
+  OFFICE = 'OFFICE',
+  OTHER = 'OTHER',
+}
+
+@Entity('user_addresses')
+export class UserAddress {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.addresses, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ type: 'enum', enum: AddressType, default: AddressType.HOME })
+  addressType: AddressType;
+
+  @Column()
+  receiverName: string;
+
+  @Column()
+  receiverPhone: string;
+
+  @Column({ nullable: true })
+  countryId?: string;
+
+  @Column({ nullable: true })
+  divisionId?: string;
+
+  @Column({ nullable: true })
+  districtId?: string;
+
+  @Column({ nullable: true })
+  upazilaId?: string;
+
+  @Column({ nullable: true })
+  areaId?: string;
+
+  @Column({ nullable: true })
+  road?: string;
+
+  @Column({ nullable: true })
+  house?: string;
+
+  @Column({ nullable: true })
+  hostel?: string;
+
+  @Column({ nullable: true })
+  roomNumber?: string;
+
+  @Column({ nullable: true })
+  postalCode?: string;
+
+  @Column({ nullable: true })
+  landmark?: string;
+
+  @Column({ type: 'float', nullable: true })
+  latitude?: number;
+
+  @Column({ type: 'float', nullable: true })
+  longitude?: number;
+
+  @Column({ default: false })
+  isDefault: boolean;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-attachment.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_attachments')
+export class UserAttachment {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.attachments, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column()
+  fileName: string;
+
+  @Column()
+  fileType: string;
+
+  @Column()
+  fileUrl: string;
+
+  @Column({ type: 'int' })
+  fileSize: number;
+
+  @Column({ nullable: true })
+  uploadedBy?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-device.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum DeviceType {
+  ANDROID = 'ANDROID',
+  IOS = 'IOS',
+  WEB = 'WEB',
+  WINDOWS = 'WINDOWS',
+  MAC = 'MAC',
+}
+
+@Entity('user_devices')
+export class UserDevice {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.devices, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column()
+  deviceId: string;
+
+  @Column({ nullable: true })
+  deviceName?: string;
+
+  @Column({ type: 'enum', enum: DeviceType, default: DeviceType.WEB })
+  deviceType: DeviceType;
+
+  @Column({ nullable: true })
+  operatingSystem?: string;
+
+  @Column({ nullable: true })
+  osVersion?: string;
+
+  @Column({ nullable: true })
+  browser?: string;
+
+  @Column({ nullable: true })
+  appVersion?: string;
+
+  @Column({ nullable: true })
+  pushToken?: string;
+
+  @Column({ nullable: true })
+  ipAddress?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lastLoginAt?: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-identity-verification.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum DocumentType {
+  NID = 'NID',
+  PASSPORT = 'PASSPORT',
+  STUDENT_ID = 'STUDENT_ID',
+  DRIVING_LICENSE = 'DRIVING_LICENSE',
+}
+
+export enum VerificationStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
+
+@Entity('user_identity_verifications')
+export class UserIdentityVerification {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.identityVerification, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ type: 'enum', enum: DocumentType })
+  documentType: DocumentType;
+
+  @Column()
+  documentNumber: string;
+
+  @Column()
+  frontImage: string;
+
+  @Column({ nullable: true })
+  backImage?: string;
+
+  @Column({ nullable: true })
+  selfieImage?: string;
+
+  @Column({
+    type: 'enum',
+    enum: VerificationStatus,
+    default: VerificationStatus.PENDING,
+  })
+  verificationStatus: VerificationStatus;
+
+  @Column({ nullable: true })
+  verifiedBy?: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  verifiedAt?: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-login-history.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_login_histories')
+export class UserLoginHistory {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.loginHistories, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ nullable: true })
+  deviceId?: string;
+
+  @Column({ nullable: true })
+  ipAddress?: string;
+
+  @Column({ nullable: true })
+  browser?: string;
+
+  @Column({ nullable: true })
+  operatingSystem?: string;
+
+  @CreateDateColumn()
+  loginTime: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  logoutTime?: Date;
+
+  @Column({ nullable: true })
+  location?: string;
+
+  @Column({ default: 'SUCCESS' })
+  status: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-notification-setting.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_notification_settings')
+export class UserNotificationSetting {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.notificationSetting, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ default: true })
+  pushNotification: boolean;
+
+  @Column({ default: true })
+  emailNotification: boolean;
+
+  @Column({ default: true })
+  smsNotification: boolean;
+
+  @Column({ default: false })
+  marketingNotification: boolean;
+
+  @Column({ default: true })
+  orderNotification: boolean;
+
+  @Column({ default: true })
+  systemNotification: boolean;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-otp.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum OtpPurpose {
+  REGISTER = 'REGISTER',
+  LOGIN = 'LOGIN',
+  PASSWORD_RESET = 'PASSWORD_RESET',
+  CHANGE_PHONE = 'CHANGE_PHONE',
+  CHANGE_EMAIL = 'CHANGE_EMAIL',
+}
+
+export enum OtpStatus {
+  PENDING = 'PENDING',
+  VERIFIED = 'VERIFIED',
+  EXPIRED = 'EXPIRED',
+}
+
+@Entity('user_otps')
+export class UserOTP {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ nullable: true })
+  userId?: string;
+
+  @ManyToOne(() => User, (user) => user.otps, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn({ name: 'userId' })
+  user?: User;
+
+  @Column({ nullable: true })
+  phone?: string;
+
+  @Column({ nullable: true })
+  email?: string;
+
+  @Column()
+  otp: string;
+
+  @Column({ type: 'enum', enum: OtpPurpose })
+  purpose: OtpPurpose;
+
+  @Column({ type: 'timestamp' })
+  expiresAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  verifiedAt?: Date;
+
+  @Column({ default: 0 })
+  attemptCount: number;
+
+  @Column({ type: 'enum', enum: OtpStatus, default: OtpStatus.PENDING })
+  status: OtpStatus;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-preference.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_preferences')
+export class UserPreference {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.preference, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ default: 'bn' })
+  language: string;
+
+  @Column({ default: 'BDT' })
+  currency: string;
+
+  @Column({ default: 'light' })
+  theme: string;
+
+  @Column({ default: 'Asia/Dhaka' })
+  timezone: string;
+
+  @Column({ nullable: true })
+  favoriteCategory?: string;
+
+  @Column({ nullable: true })
+  favoriteInstitute?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-profile.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_profiles')
+export class UserProfile {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ nullable: true })
+  profilePhoto?: string;
+
+  @Column({ type: 'date', nullable: true })
+  dateOfBirth?: Date;
+
+  @Column({ nullable: true })
+  gender?: string;
+
+  @Column({ nullable: true })
+  bloodGroup?: string;
+
+  @Column({ nullable: true })
+  fatherName?: string;
+
+  @Column({ nullable: true })
+  motherName?: string;
+
+  @Column({ nullable: true })
+  occupation?: string;
+
+  @Column({ type: 'text', nullable: true })
+  bio?: string;
+
+  @Column({ nullable: true })
+  facebook?: string;
+
+  @Column({ nullable: true })
+  linkedin?: string;
+
+  @Column({ nullable: true })
+  website?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-security.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+@Entity('user_securities')
+export class UserSecurity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @OneToOne(() => User, (user) => user.security, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ default: false })
+  twoFactorEnabled: boolean;
+
+  @Column({ default: 0 })
+  failedLoginAttempt: number;
+
+  @Column({ default: false })
+  accountLocked: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordChangedAt?: Date;
+
+  @Column({ nullable: true })
+  securityQuestion?: string;
+
+  @Column({ nullable: true })
+  securityAnswer?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-session.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum SessionStatus {
+  ACTIVE = 'ACTIVE',
+  EXPIRED = 'EXPIRED',
+  LOGGED_OUT = 'LOGGED_OUT',
+}
+
+@Entity('user_sessions')
+export class UserSession {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.sessions, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ nullable: true })
+  deviceId?: string;
+
+  @Column({ type: 'text' })
+  accessToken: string;
+
+  @Column({ type: 'text' })
+  refreshToken: string;
+
+  @CreateDateColumn()
+  loginAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  logoutAt?: Date;
+
+  @Column({ type: 'timestamp' })
+  expiresAt: Date;
+
+  @Column({ type: 'enum', enum: SessionStatus, default: SessionStatus.ACTIVE })
+  status: SessionStatus;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user-token.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+
+export enum TokenType {
+  EMAIL_VERIFY = 'EMAIL_VERIFY',
+  PASSWORD_RESET = 'PASSWORD_RESET',
+  REFRESH_TOKEN = 'REFRESH_TOKEN',
+  API_TOKEN = 'API_TOKEN',
+}
+
+@Entity('user_tokens')
+export class UserToken {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column()
+  userId: string;
+
+  @ManyToOne(() => User, (user) => user.tokens, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column({ unique: true })
+  token: string;
+
+  @Column({ type: 'enum', enum: TokenType })
+  tokenType: TokenType;
+
+  @Column({ type: 'timestamp' })
+  expiresAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  usedAt?: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
+</file>
+
+<file path="src/auth/entities/user.entity.ts">
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  OneToOne,
+  OneToMany,
+} from 'typeorm';
+import { UserProfile } from './user-profile.entity';
+import { StudentProfile } from './student-profile.entity';
+import { UserAddress } from './user-address.entity';
+import { UserDevice } from './user-device.entity';
+import { UserSession } from './user-session.entity';
+import { UserOTP } from './user-otp.entity';
+import { UserToken } from './user-token.entity';
+import { UserLoginHistory } from './user-login-history.entity';
+import { UserSecurity } from './user-security.entity';
+import { UserPreference } from './user-preference.entity';
+import { UserNotificationSetting } from './user-notification-setting.entity';
+import { UserIdentityVerification } from './user-identity-verification.entity';
+import { UserAttachment } from './user-attachment.entity';
+import { UserActivity } from './user-activity.entity';
+import { SupportTicket } from './support-ticket.entity';
+
+export enum UserStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+  PENDING = 'PENDING',
+  SUSPENDED = 'SUSPENDED',
+  BLOCKED = 'BLOCKED',
+}
+
+@Entity('users')
+export class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ unique: true })
+  userCode: string;
+
+  @Column()
+  firstName: string;
+
+  @Column()
+  lastName: string;
+
+  @Column()
+  fullName: string;
+
+  @Column({ nullable: true, unique: true })
+  email?: string;
+
+  @Column({ unique: true })
+  phone: string;
+
+  @Column()
+  password: string;
+
+  @Column('simple-array', { default: 'STUDENT' })
+  roles: string[];
+
+  @Column({ type: 'enum', enum: UserStatus, default: UserStatus.PENDING })
+  status: UserStatus;
+
+  @Column({ default: true })
+  isActive: boolean;
+
+  @Column({ default: false })
+  isVerified: boolean;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lastLoginAt?: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  emailVerifiedAt?: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  phoneVerifiedAt?: Date;
+
+  @Column({ nullable: true })
+  createdBy?: string;
+
+  @Column({ nullable: true })
+  updatedBy?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
+
+  // 1:1 Relationships
+  @OneToOne(() => UserProfile, (profile) => profile.user, { cascade: true })
+  profile: UserProfile;
+
+  @OneToOne(() => StudentProfile, (sp) => sp.user, { cascade: true })
+  studentProfile: StudentProfile;
+
+  @OneToOne(() => UserSecurity, (sec) => sec.user, { cascade: true })
+  security: UserSecurity;
+
+  @OneToOne(() => UserPreference, (pref) => pref.user, { cascade: true })
+  preference: UserPreference;
+
+  @OneToOne(() => UserNotificationSetting, (uns) => uns.user, { cascade: true })
+  notificationSetting: UserNotificationSetting;
+
+  @OneToOne(() => UserIdentityVerification, (uiv) => uiv.user, { cascade: true })
+  identityVerification: UserIdentityVerification;
+
+  // 1:N Relationships
+  @OneToMany(() => UserAddress, (addr) => addr.user)
+  addresses: UserAddress[];
+
+  @OneToMany(() => UserDevice, (dev) => dev.user)
+  devices: UserDevice[];
+
+  @OneToMany(() => UserSession, (sess) => sess.user)
+  sessions: UserSession[];
+
+  @OneToMany(() => UserOTP, (otp) => otp.user)
+  otps: UserOTP[];
+
+  @OneToMany(() => UserToken, (tok) => tok.user)
+  tokens: UserToken[];
+
+  @OneToMany(() => UserLoginHistory, (lh) => lh.user)
+  loginHistories: UserLoginHistory[];
+
+  @OneToMany(() => UserAttachment, (att) => att.user)
+  attachments: UserAttachment[];
+
+  @OneToMany(() => UserActivity, (act) => act.user)
+  activities: UserActivity[];
+
+  @OneToMany(() => SupportTicket, (st) => st.user)
+  supportTickets: SupportTicket[];
+}
+</file>
+
+<file path="src/auth/guards/jwt-auth.guard.ts">
+import { Injectable } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {}
+
+@Injectable()
+export class JwtRefreshGuard extends AuthGuard('jwt-refresh') {}
+</file>
+
+<file path="src/auth/guards/strict-jwt-auth.guard.ts">
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+  SetMetadata,
+} from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserSession, SessionStatus } from '../entities';
+
+export const IS_PUBLIC_KEY = 'isPublic';
+export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
+
+@Injectable()
+export class StrictJwtAuthGuard implements CanActivate {
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly jwtService: JwtService,
+    @InjectRepository(UserSession)
+    private readonly sessionRepository: Repository<UserSession>,
+  ) {}
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    // 1. Check if endpoint is marked as @Public()
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (isPublic) {
+      return true;
+    }
+
+    const request = context.switchToHttp().getRequest<Request>();
+
+    // 2. Extract Token from HTTP-Only Cookie or Authorization Header
+    let token = request.cookies?.['access_token'];
+    if (!token && request.headers.authorization) {
+      token = request.headers.authorization.replace('Bearer ', '');
+    }
+
+    if (!token) {
+      throw new UnauthorizedException({
+        statusCode: 401,
+        message: 'Access Denied. JWT Token is missing.',
+        error: 'Unauthorized',
+      });
+    }
+
+    // 3. Verify JWT Signature & Expiry
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET || 'supersecret_jwt_access_key',
+      });
+    } catch (err) {
+      throw new UnauthorizedException({
+        statusCode: 401,
+        message: 'Invalid or expired JWT token.',
+        error: 'Unauthorized',
+      });
+    }
+
+    // 4. Verify Active Session in Database (Revocation Check)
+    if (payload.sessionId) {
+      const session = await this.sessionRepository.findOne({
+        where: { id: payload.sessionId },
+      });
+
+      if (!session || session.status !== SessionStatus.ACTIVE) {
+        throw new UnauthorizedException({
+          statusCode: 401,
+          message: 'Session has been revoked or logged out.',
+          error: 'Unauthorized',
+        });
+      }
+    }
+
+    // Attach validated user context to request
+    request['user'] = {
+      id: payload.sub,
+      email: payload.email,
+      phone: payload.phone,
+      roles: payload.roles,
+      sessionId: payload.sessionId,
+    };
+
+    return true;
+  }
+}
+</file>
+
+<file path="src/auth/interceptors/token-required.interceptor.ts">
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+
+// Public endpoints that do NOT require token
+const PUBLIC_ROUTES = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/send-otp',
+  '/auth/verify-otp',
+  '/auth/refresh-token',
+];
+
+@Injectable()
+export class TokenRequiredInterceptor implements NestInterceptor {
+  constructor(private readonly jwtService: JwtService) {}
+
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest<Request>();
+    const path = request.path || request.url;
+
+    // Check if the current route is public
+    const isPublic = PUBLIC_ROUTES.some((route) => path.startsWith(route));
+    if (isPublic) {
+      return next.handle();
+    }
+
+    // Extract Token from Cookie or Bearer Header
+    let token = request.cookies?.['access_token'];
+    if (!token && request.headers.authorization) {
+      token = request.headers.authorization.replace('Bearer ', '');
+    }
+
+    if (!token) {
+      throw new UnauthorizedException({
+        statusCode: 401,
+        message: 'Access denied. Token is missing from request.',
+        error: 'Unauthorized',
+      });
+    }
+
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: process.env.JWT_SECRET || 'supersecret_jwt_access_key',
+      });
+      request['user'] = {
+        id: payload.sub,
+        email: payload.email,
+        phone: payload.phone,
+        roles: payload.roles,
+        sessionId: payload.sessionId,
+      };
+    } catch (error) {
+      throw new UnauthorizedException({
+        statusCode: 401,
+        message: 'Token verification failed or token expired.',
+        error: 'Unauthorized',
+      });
+    }
+
+    return next.handle();
+  }
+}
+</file>
+
+<file path="src/auth/strategies/jwt-refresh.strategy.ts">
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import type { Request } from 'express';
+
+@Injectable()
+export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request) => {
+          let token: string | null = null;
+          if (request && request.cookies) {
+            token = request.cookies['refresh_token'] || null;
+          }
+          if (!token && request.headers['x-refresh-token']) {
+            token = (request.headers['x-refresh-token'] as string) || null;
+          }
+          return token;
+        },
+      ]),
+      ignoreExpiration: false,
+      secretOrKey: process.env.JWT_REFRESH_SECRET || 'supersecret_jwt_refresh_key',
+      passReqToCallback: true,
+    });
+  }
+
+  async validate(req: Request, payload: any) {
+    let refreshToken = req.cookies?.['refresh_token'];
+    if (!refreshToken && req.headers['x-refresh-token']) {
+      refreshToken = req.headers['x-refresh-token'] as string;
+    }
+    if (!refreshToken) throw new UnauthorizedException('Refresh token missing');
+
+    return {
+      id: payload.sub,
+      email: payload.email,
+      roles: payload.roles,
+      sessionId: payload.sessionId,
+      refreshToken,
+    };
+  }
+}
+</file>
+
+<file path="src/auth/strategies/jwt.strategy.ts">
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { PassportStrategy } from '@nestjs/passport';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import type { Request } from 'express';
+
+@Injectable()
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: Request) => {
+          let token: string | null = null;
+          if (request && request.cookies) {
+            token = request.cookies['access_token'] || null;
+          }
+          if (!token && request.headers.authorization) {
+            token = request.headers.authorization.replace('Bearer ', '');
+          }
+          return token;
+        },
+      ]),
+      ignoreExpiration: false,
+      secretOrKey: process.env.JWT_SECRET || 'supersecret_jwt_access_key',
+    });
+  }
+
+  async validate(payload: any) {
+    if (!payload || !payload.sub) {
+      throw new UnauthorizedException('Invalid token payload');
+    }
+    return {
+      id: payload.sub,
+      email: payload.email,
+      phone: payload.phone,
+      roles: payload.roles,
+      sessionId: payload.sessionId,
+    };
+  }
+}
+</file>
+
+<file path="src/common/filters/global-exception.filter.ts">
+import {
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { Response, Request } from 'express';
+
+@Catch()
+export class GlobalHttpExceptionFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
+
+    const exceptionResponse: any =
+      exception instanceof HttpException
+        ? exception.getResponse()
+        : { message: 'Internal server error' };
+
+    const message =
+      typeof exceptionResponse === 'object' && exceptionResponse.message
+        ? exceptionResponse.message
+        : exceptionResponse;
+
+    const error =
+      typeof exceptionResponse === 'object' && exceptionResponse.error
+        ? exceptionResponse.error
+        : 'Error';
+
+    response.status(status).json({
+      success: false,
+      statusCode: status,
+      error,
+      message,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    });
+  }
+}
+</file>
+
+<file path="src/main.ts">
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import { GlobalHttpExceptionFilter } from './common/filters/global-exception.filter';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // 1. Production Security Headers (Helmet)
+  app.use(helmet());
+
+  // 2. Global Rate Limiter (Brute-Force & DDOS Protection: Max 100 requests per 15 mins per IP)
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000,
+      max: 100,
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: {
+        statusCode: 429,
+        error: 'Too Many Requests',
+        message: 'Too many requests from this IP, please try again after 15 minutes.',
+      },
+    }),
+  );
+
+  // 3. Global Cookie Parser
+  app.use(cookieParser());
+
+  // 4. Global Validation Pipe with strict DTO sanitization
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
+  // 5. Global Standard Exception Filter (Handles 401, 400, 429, 500 cleanly)
+  app.useGlobalFilters(new GlobalHttpExceptionFilter());
+
+  // 6. Global API Versioning Prefix
+  app.setGlobalPrefix('api/v1');
+
+  // 7. Strict CORS Configuration
+  app.enableCors({
+    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-refresh-token', 'X-Requested-With'],
+  });
+
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
+  console.log(`🔒 Enterprise SaaS Security Active on http://localhost:${port}/api/v1`);
+}
+bootstrap();
+</file>
+
+<file path="TECHNICAL_REVIEW.md">
+# Complete Code Review & Technical Documentation - BOI LAGBE Auth & Security Architecture
+
+This document provides a comprehensive technical review of the production-ready Authentication and SaaS Zero-Trust Security Module built for **BOI LAGBE**.
+
+---
+
+## Table of Contents
+1. [Architecture Overview & Technology Stack](#1-architecture-overview--technology-stack)
+2. [Database Layer (TypeORM & Neon PostgreSQL)](#2-database-layer-typeorm--neon-postgresql)
+3. [Global Security & Middlewares](#3-global-security--middlewares)
+4. [Authentication Logic & Business Functions](#4-authentication-logic--business-functions)
+5. [JWT & Cookie Management Strategy](#5-jwt--cookie-management-strategy)
+6. [API Route Reference & Security Matrix](#6-api-route-reference--security-matrix)
+
+---
+
+## 1. Architecture Overview & Technology Stack
+
+- **Framework**: NestJS (v11)
+- **Database**: Neon Cloud PostgreSQL via TypeORM
+- **Security Standard**: SaaS Zero-Trust (Strict 401 Enforcement, Session Revocation, Rate Limiting, HTTP Security Headers, Signed HTTP-Only Cookies)
+
+```mermaid
+graph TD
+    Client[Client App / Mobile / Web] -->|HTTP Request| Helmet[Helmet Security Headers]
+    Helmet --> RateLimiter[Rate Limiter - 100 req/15m]
+    RateLimiter --> GlobalFilter[Global Exception Filter]
+    GlobalFilter --> GlobalGuard[StrictJwtAuthGuard]
+    
+    GlobalGuard -->|Check @Public Decorator| PublicCheck{Is @Public?}
+    PublicCheck -->|Yes| AuthController[Auth Controller]
+    PublicCheck -->|No| TokenValidation{Extract & Verify Token}
+    
+    TokenValidation -->|Missing / Invalid Token| Ret401[Return 401 Unauthorized JSON]
+    TokenValidation -->|Valid Token| SessionCheck{Check Active UserSession in DB}
+    SessionCheck -->|Revoked / Logged Out| Ret401
+    SessionCheck -->|Active Session| AuthController
+```
+
+---
+
+## 2. Database Layer (TypeORM & Neon PostgreSQL)
+
+We implemented **16 core entities** in `src/auth/entities/` mapping the complete user identity, profile, preferences, security, audit history, and support ecosystem.
+
+### Entity Summary & Rationale
+
+| # | Entity File | Table Name | Purpose & Rationale | Key Fields & Enums |
+|---|---|---|---|---|
+| 1 | `user.entity.ts` | `users` | Core user identity table. Primary entry point for all system roles (Student, Admin, Agent, Rider, Support). | `userCode`, `email`, `phone`, `password`, `roles` (`string[]`), `status` (`ACTIVE`, `SUSPENDED`, `BLOCKED`) |
+| 2 | `user-profile.entity.ts` | `user_profiles` | 1:1 metadata extension for personal profile details. Keeps core `users` table lightweight. | `profilePhoto`, `dateOfBirth`, `gender`, `bloodGroup`, `bio`, `facebook`, `linkedin` |
+| 3 | `student-profile.entity.ts` | `student_profiles` | 1:1 dedicated profile for users with `STUDENT` role. | `studentId`, `instituteId`, `campusId`, `departmentId`, `batch`, `rollNumber` |
+| 4 | `user-address.entity.ts` | `user_addresses` | 1:N address repository for deliveries & shipping. | `addressType` (`HOME`, `HOSTEL`, `CAMPUS`, `OFFICE`, `OTHER`), `receiverName`, `receiverPhone`, `road`, `house`, `isDefault` |
+| 5 | `user-device.entity.ts` | `user_devices` | 1:N device tracking for push notifications & login security audits. | `deviceId`, `deviceName`, `deviceType` (`ANDROID`, `IOS`, `WEB`, `WINDOWS`, `MAC`), `pushToken`, `ipAddress` |
+| 6 | `user-session.entity.ts` | `user_sessions` | 1:N active session manager. Used for immediate session revocation and token tracking. | `accessToken`, `refreshToken`, `expiresAt`, `status` (`ACTIVE`, `EXPIRED`, `LOGGED_OUT`) |
+| 7 | `user-otp.entity.ts` | `user_otps` | 1:N OTP verification repository with expiration and rate limiting attempt counters. | `otp`, `purpose` (`REGISTER`, `LOGIN`, `PASSWORD_RESET`, `CHANGE_PHONE`, `CHANGE_EMAIL`), `attemptCount`, `status` (`PENDING`, `VERIFIED`, `EXPIRED`) |
+| 8 | `user-token.entity.ts` | `user_tokens` | 1:N long-lived or transactional tokens (password resets, email verifications). | `token`, `tokenType` (`EMAIL_VERIFY`, `PASSWORD_RESET`, `REFRESH_TOKEN`, `API_TOKEN`), `expiresAt`, `usedAt` |
+| 9 | `user-login-history.entity.ts` | `user_login_histories` | 1:N compliance audit trail recording all login attempts, IP addresses, and user-agents. | `ipAddress`, `browser`, `operatingSystem`, `loginTime`, `logoutTime`, `status` |
+| 10 | `user-security.entity.ts` | `user_securities` | 1:1 account security tracker to prevent brute-force attacks. | `twoFactorEnabled`, `failedLoginAttempt`, `accountLocked`, `passwordChangedAt` |
+| 11 | `user-preference.entity.ts` | `user_preferences` | 1:1 localization & UI settings per user. | `language`, `currency`, `theme`, `timezone` |
+| 12 | `user-notification-setting.entity.ts` | `user_notification_settings` | 1:1 notification preference toggles. | `pushNotification`, `emailNotification`, `smsNotification`, `marketingNotification` |
+| 13 | `user-identity-verification.entity.ts` | `user_identity_verifications` | 1:1 KYC & agent/rider identity verification documents. | `documentType` (`NID`, `PASSPORT`, `STUDENT_ID`, `DRIVING_LICENSE`), `documentNumber`, `frontImage`, `verificationStatus` (`PENDING`, `APPROVED`, `REJECTED`) |
+| 14 | `user-attachment.entity.ts` | `user_attachments` | 1:N generic file attachments linked to user account. | `fileName`, `fileType`, `fileUrl`, `fileSize` |
+| 15 | `user-activity.entity.ts` | `user_activities` | 1:N audit logs for critical actions (e.g., password change, PDF download, order placement). | `activity` (`REGISTER`, `LOGIN`, `LOGOUT`, `PROFILE_UPDATED`, etc.), `ipAddress`, `referenceId` |
+| 16 | `support-ticket.entity.ts` | `support_tickets` | 1:N support ticket system tied directly to user account. | `ticketNumber`, `category`, `priority`, `subject`, `description`, `status` (`OPEN`, `RESOLVED`, `CLOSED`) |
+
+---
+
+## 3. Global Security & Middlewares
+
+All global security components are configured in `src/main.ts` and `src/app.module.ts`:
+
+### A. `helmet()` (`main.ts`)
+- **Why it was used**: Protects the server against common web vulnerabilities by setting security HTTP headers (XSS Filter, HSTS, X-Frame-Options, Content Security Policy).
+
+### B. `rateLimit()` (`main.ts`)
+- **Why it was used**: Prevents brute-force login attacks and Denial-of-Service (DDoS) by restricting IPs to a maximum of 100 requests per 15-minute window.
+
+### C. `GlobalHttpExceptionFilter` (`src/common/filters/global-exception.filter.ts`)
+- **Why it was used**: Catches all errors (400, 401, 403, 404, 500) across the entire app and standardizes them into a clean JSON response format.
+
+### D. `StrictJwtAuthGuard` (`src/auth/guards/strict-jwt-auth.guard.ts`)
+- **Why it was used**: Operates as a global `APP_GUARD`. It enforces **Zero-Trust Security**:
+  1. Checks if the endpoint is decorated with `@Public()`. If yes, allows access.
+  2. If not public, extracts JWT token from `req.cookies['access_token']` or `Authorization: Bearer <token>`.
+  3. If token is missing or invalid, throws **HTTP 401 Unauthorized**.
+  4. Queries `UserSession` table in Neon PostgreSQL to ensure the session is active. If logged out, throws **HTTP 401 Unauthorized**.
+
+---
+
+## 4. Authentication Logic & Business Functions
+
+All core authentication business logic is located in `src/auth/auth.service.ts`:
+
+### 1. `register(dto: RegisterDto)`
+- **Purpose**: Creates a new user account.
+- **Why & How**:
+  - Validates uniqueness of phone number and email.
+  - Hashes password using `bcrypt` (10 rounds).
+  - Uses a **TypeORM QueryRunner Transaction** to atomically create `User`, `UserProfile`, `StudentProfile` (if role includes `STUDENT`), `UserSecurity`, `UserPreference`, `UserNotificationSetting`, and `UserActivity`. If any sub-profile fails, all changes rollback safely.
+
+### 2. `login(dto: LoginDto, req: Request)`
+- **Purpose**: Authenticates user credentials and issues session tokens.
+- **Why & How**:
+  - Finds user by email or phone.
+  - Checks if `accountLocked` is true in `UserSecurity`.
+  - Verifies password with `bcrypt.compare`.
+  - Increments `failedLoginAttempt` on wrong password; locks account when attempts >= 5.
+  - Records `UserLoginHistory` (IP address, user-agent).
+  - Creates a new `UserSession` record in database with status `ACTIVE`.
+  - Generates Access Token (15m) and Refresh Token (7d).
+
+### 3. `sendOtp(dto: SendOtpDto)` & `verifyOtp(dto: VerifyOtpDto)`
+- **Purpose**: Sends 6-digit OTP codes and verifies them for phone registration/verification.
+- **Why & How**:
+  - Saves code in `user_otps` table with 5-minute expiration (`expiresAt`).
+  - Verifies OTP code, updates `attemptCount`, sets status to `VERIFIED`, and sets `isVerified = true` on `User`.
+
+### 4. `refreshToken(userId, sessionId, oldRefreshToken)`
+- **Purpose**: Issues a new token pair without requiring re-login.
+- **Why & How**:
+  - Validates `sessionId` in `user_sessions` table.
+  - Verifies old refresh token signature.
+  - Rotates tokens (replaces old tokens in DB with newly generated tokens).
+
+### 5. `logout(userId, sessionId)`
+- **Purpose**: Logs out user and revokes active session.
+- **Why & How**:
+  - Updates `UserSession` status to `LOGGED_OUT` and sets `logoutAt = new Date()`.
+  - Clears `access_token` and `refresh_token` HTTP-Only cookies on response.
+
+### 6. `getProfile(userId)`
+- **Purpose**: Returns complete user details and all linked sub-profiles.
+- **Why & How**:
+  - Queries `User` table with `relations: { profile: true, studentProfile: true, addresses: true, security: true, preference: true, notificationSetting: true, identityVerification: true }`.
+  - Strips `password` field from output object before returning.
+
+---
+
+## 5. JWT & Cookie Management Strategy
+
+- **Access Token**: Short-lived (15 minutes). Transmitted via HTTP-Only, `SameSite=Strict` cookie named `access_token` (or `Authorization: Bearer` header).
+- **Refresh Token**: Long-lived (7 days). Transmitted via HTTP-Only, `SameSite=Strict` cookie named `refresh_token`.
+- **Security Benefits**:
+  - **XSS Protection**: JavaScript running on client browser cannot access `document.cookie`.
+  - **CSRF Protection**: `SameSite=Strict` prevents unauthorized cross-site requests.
+
+---
+
+## 6. API Route Reference & Security Matrix
+
+Base Path: `http://localhost:3000/api/v1`
+
+| Method | Endpoint | Security Level | Auth Required | Description |
+|---|---|---|---|---|
+| `POST` | `/auth/register` | Public (`@Public()`) | ❌ No | User & student profile registration |
+| `POST` | `/auth/send-otp` | Public (`@Public()`) | ❌ No | Generates and sends OTP code |
+| `POST` | `/auth/verify-otp` | Public (`@Public()`) | ❌ No | Validates 6-digit OTP |
+| `POST` | `/auth/login` | Public (`@Public()`) | ❌ No | Validates credentials & sets HTTP-Only cookies |
+| `POST` | `/auth/refresh-token` | Public + Refresh Guard | ⚠️ Refresh Token | Rotates expired access token |
+| `POST` | `/auth/logout` | Protected (Zero-Trust) | ✅ Access Token | Revokes session & clears cookies |
+| `GET` | `/auth/me` | Protected (Zero-Trust) | ✅ Access Token | Fetches complete user profile & sub-objects |
+</file>
+
+<file path="test/app.e2e-spec.ts">
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import request from 'supertest';
+import { App } from 'supertest/types';
+import { AppModule } from './../src/app.module';
+
+describe('AppController (e2e)', () => {
+  let app: INestApplication<App>;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('/ (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+});
+</file>
+
+<file path="test/jest-e2e.json">
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}
+</file>
+
+<file path="tsconfig.build.json">
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
+</file>
+
+</files>

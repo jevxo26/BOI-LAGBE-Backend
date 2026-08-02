@@ -7,7 +7,9 @@ import {
   Post,
   Query,
   Req,
+  ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CustomOrdersService } from './custom-orders.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -29,6 +31,8 @@ import { ListCustomReportQueryDto } from './dto/list-custom-report-query.dto';
 // All custom-order routes require authentication (global StrictJwtAuthGuard)
 // AND the ADMIN or SUPER_ADMIN role (@AdminOnly). Never add @Public() here.
 // Static routes must be declared before any parameterized :id route.
+@ApiTags('Admin - Custom Orders')
+@ApiBearerAuth()
 @Controller('admin/custom-orders')
 @AdminOnly()
 export class CustomOrdersController {
@@ -64,7 +68,7 @@ export class CustomOrdersController {
 
   @Patch('print-jobs/:id/status')
   async updatePrintJobStatus(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdatePrintJobStatusDto,
     @Req() req: AdminRequest,
   ) {
@@ -73,7 +77,7 @@ export class CustomOrdersController {
 
   @Patch('production-stages/:id/status')
   async updateProductionStageStatus(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateProductionStageStatusDto,
     @Req() req: AdminRequest,
   ) {
@@ -100,13 +104,13 @@ export class CustomOrdersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.customOrdersService.findOrderById(id);
   }
 
   @Patch(':id/status')
   async updateStatus(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateCustomOrderStatusDto,
     @Req() req: AdminRequest,
   ) {
@@ -115,7 +119,7 @@ export class CustomOrdersController {
 
   @Post(':id/quotation')
   async createQuotation(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: CreateCustomQuotationDto,
     @Req() req: AdminRequest,
   ) {
@@ -124,7 +128,7 @@ export class CustomOrdersController {
 
   @Post(':id/approve')
   async approveOrder(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ApproveCustomOrderDto,
     @Req() req: AdminRequest,
   ) {
@@ -133,7 +137,7 @@ export class CustomOrdersController {
 
   @Post(':id/production/start')
   async startProduction(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: StartProductionDto,
     @Req() req: AdminRequest,
   ) {
@@ -142,7 +146,7 @@ export class CustomOrdersController {
 
   @Post(':id/production/stages')
   async addProductionStage(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: AddProductionStageDto,
     @Req() req: AdminRequest,
   ) {
@@ -151,7 +155,7 @@ export class CustomOrdersController {
 
   @Post(':id/delivery-schedule')
   async scheduleDelivery(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ScheduleCustomDeliveryDto,
     @Req() req: AdminRequest,
   ) {

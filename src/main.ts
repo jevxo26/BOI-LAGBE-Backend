@@ -5,12 +5,27 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { GlobalHttpExceptionFilter } from './common/filters/global-exception.filter';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // 1. Production Security Headers (Helmet)
-  app.use(helmet());
+  // Default CSP would block Swagger UI's inline bootstrap script/styles, so the
+  // script-src/style-src directives are relaxed for it; all other helmet
+  // protections (X-Frame-Options, HSTS, nosniff, etc.) stay enabled.
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          'script-src': ["'self'", "'unsafe-inline'"],
+          'style-src': ["'self'", "'unsafe-inline'"],
+          'img-src': ["'self'", 'data:'],
+        },
+      },
+    }),
+  );
 
   // 2. Global Rate Limiter (Brute-Force & DDOS Protection: Max 100 requests per 15 mins per IP)
   app.use(
@@ -22,7 +37,8 @@ async function bootstrap() {
       message: {
         statusCode: 429,
         error: 'Too Many Requests',
-        message: 'Too many requests from this IP, please try again after 15 minutes.',
+        message:
+          'Too many requests from this IP, please try again after 15 minutes.',
       },
     }),
   );
@@ -47,14 +63,39 @@ async function bootstrap() {
 
   // 7. Strict CORS Configuration
   app.enableCors({
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : true,
+    origin: process.env.ALLOWED_ORIGINS
+      ? process.env.ALLOWED_ORIGINS.split(',')
+      : true,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-refresh-token', 'X-Requested-With'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'x-refresh-token',
+      'X-Requested-With',
+    ],
   });
 
-  const port = process.env.PORT ?? 3000;
+  // 8. Swagger / OpenAPI documentation
+  // Every /admin/* route requires a JWT access token with the ADMIN or
+  // SUPER_ADMIN role — the UI groups them under @ApiTags and marks them with
+  // @ApiBearerAuth (click Authorize and paste the access token to try them).
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('BOI LAGBE API')
+    .setDescription(
+      'Enterprise SaaS backend for the BOI LAGBE platform. All /admin/* routes ' +
+        'require a JWT access token carrying the ADMIN or SUPER_ADMIN role.',
+    )
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('docs', app, document, { useGlobalPrefix: true });
+
+  const port = process.env.PORT ?? 4001;
   await app.listen(port);
-  console.log(`🔒 Enterprise SaaS Security Active on http://localhost:${port}/api/v1`);
+  console.log(
+    `🔒 Enterprise SaaS Security Active on http://localhost:${port}/api/v1`,
+  );
 }
-bootstrap();
+void bootstrap();

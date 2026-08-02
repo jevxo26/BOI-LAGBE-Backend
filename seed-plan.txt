@@ -1,0 +1,1571 @@
+== academic_sessions
+   REQ: name
+
+== accounts
+   REQ: accountCode
+   REQ: name
+   REQ: accountType
+
+== activity_logs
+   REQ: module
+   REQ: activity
+
+== admin_activities
+   REQ: adminId
+   REQ: module
+   REQ: action
+
+== agent_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== agent_announcements
+   REQ: agentId
+   REQ: title
+   FK:  agentId -> agents.id
+
+== agent_areas
+   REQ: agentId
+   REQ: areaId
+   FK:  agentId -> agents.id, areaId -> areas.id
+
+== agent_attendances
+   REQ: agentId
+   FK:  agentId -> agents.id
+
+== agent_bonuses
+   REQ: agentId
+   REQ: title
+   FK:  agentId -> agents.id
+
+== agent_commissions
+   REQ: agentId
+   REQ: orderId
+   FK:  agentId -> agents.id
+
+== agent_daily_sales
+   REQ: storeId
+   REQ: saleDate
+   FK:  storeId -> agent_stores.id
+
+== agent_damage_stocks
+   REQ: storeId
+   REQ: productId
+   REQ: quantity
+   FK:  storeId -> agent_stores.id
+
+== agent_documents
+   REQ: agentId
+   FK:  agentId -> agents.id
+
+== agent_employees
+   REQ: agentId
+   REQ: name
+   FK:  agentId -> agents.id
+
+== agent_institutes
+   REQ: agentId
+   REQ: instituteId
+   FK:  agentId -> agents.id, instituteId -> institutes.id
+
+== agent_inventories
+   REQ: storeId
+   REQ: productId
+   FK:  storeId -> agent_stores.id
+
+== agent_inventory_adjustments
+   REQ: storeId
+   REQ: productId
+   REQ: adjustmentType
+   REQ: oldQuantity
+   REQ: newQuantity
+   FK:  storeId -> agent_stores.id
+
+== agent_inventory_audits
+   REQ: storeId
+   REQ: auditDate
+   FK:  storeId -> agent_stores.id
+
+== agent_inventory_batches
+   REQ: inventoryId
+   REQ: batchNumber
+   FK:  inventoryId -> agent_inventories.id
+
+== agent_leaves
+   REQ: agentId
+   FK:  agentId -> agents.id
+
+== agent_low_stock_alerts
+   REQ: storeId
+   REQ: productId
+   REQ: currentStock
+   REQ: reorderLevel
+   REQ: alertedAt
+   FK:  storeId -> agent_stores.id
+
+== agent_penalties
+   REQ: agentId
+   REQ: title
+   FK:  agentId -> agents.id
+
+== agent_performances
+   REQ: agentId
+   REQ: month
+   REQ: year
+   FK:  agentId -> agents.id
+
+== agent_product_receives
+   REQ: storeId
+   REQ: productId
+   REQ: quantity
+   REQ: receivedAt
+   FK:  storeId -> agent_stores.id
+
+== agent_restock_items
+   REQ: restockRequestId
+   REQ: productId
+   REQ: quantity
+   FK:  restockRequestId -> agent_restock_requests.id
+
+== agent_restock_requests
+   REQ: storeId
+   REQ: productId
+   REQ: requestedQuantity
+   FK:  storeId -> agent_stores.id
+
+== agent_return_stocks
+   REQ: storeId
+   REQ: productId
+   REQ: quantity
+   FK:  storeId -> agent_stores.id
+
+== agent_salaries
+   REQ: agentId
+   REQ: month
+   REQ: year
+   FK:  agentId -> agents.id
+
+== agent_settlements
+   REQ: agentId
+   FK:  agentId -> agents.id
+
+== agent_shelves
+   REQ: storeId
+   REQ: name
+   FK:  storeId -> agent_stores.id
+
+== agent_stock_movements
+   REQ: storeId
+   REQ: productId
+   REQ: movementType
+   REQ: quantity
+   FK:  storeId -> agent_stores.id
+
+== agent_stock_reservations
+   REQ: inventoryId
+   REQ: productId
+   REQ: reservedQuantity
+   FK:  inventoryId -> agent_inventories.id
+
+== agent_stock_transfer_items
+   REQ: transferId
+   REQ: productId
+   REQ: quantity
+   FK:  transferId -> agent_stock_transfers.id
+
+== agent_stock_transfers
+   REQ: transferCode
+   REQ: fromStoreId
+   REQ: toStoreId
+   FK:  fromStoreId -> agent_stores.id, toStoreId -> agent_stores.id
+
+== agent_store_closings
+   REQ: storeId
+   REQ: closingDate
+   FK:  storeId -> agent_stores.id
+
+== agent_store_expense_categories
+   REQ: name
+
+== agent_store_expenses
+   REQ: storeId
+   REQ: expenseDate
+   FK:  storeId -> agent_stores.id, categoryId -> agent_store_expense_categories.id
+
+== agent_stores
+   REQ: agentId
+   REQ: storeName
+   FK:  agentId -> agents.id, areaId -> areas.id
+
+== agent_targets
+   REQ: agentId
+   REQ: month
+   REQ: year
+   FK:  agentId -> agents.id
+
+== agent_wallet_transactions
+   REQ: walletId
+   REQ: transactionType
+   FK:  walletId -> agent_wallets.id
+
+== agent_wallets
+   REQ: agentId
+   FK:  agentId -> agents.id
+
+== agents
+   REQ: userId
+   REQ: agentCode
+   REQ: fullName
+   FK:  userId -> users.id
+
+== announcements
+   REQ: title
+   REQ: message
+   REQ: audience
+
+== approval_levels
+   REQ: name
+
+== approval_workflows
+   REQ: module
+   REQ: referenceId
+   REQ: approvalLevelId
+   REQ: requestedBy
+   FK:  approvalLevelId -> approval_levels.id
+
+== area_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== area_coverages
+   REQ: areaId
+   REQ: agentId
+   FK:  areaId -> areas.id
+
+== areas
+   REQ: upazilaId
+   REQ: name
+   FK:  upazilaId -> upazilas.id
+
+== audit_logs
+   REQ: module
+   REQ: action
+
+== audit_reports
+   REQ: reportCode
+   REQ: periodStart
+   REQ: periodEnd
+   REQ: generatedAt
+
+== balance_sheets
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== bank_accounts
+   REQ: accountCode
+   REQ: bankName
+   REQ: accountName
+   REQ: accountNumber
+
+== barcodes
+   REQ: productId
+   REQ: barcode
+
+== bi_order_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== bi_rider_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== bi_used_book_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== book_authors
+   REQ: name
+   REQ: slug
+
+== book_categories
+   REQ: name
+   REQ: slug
+   FK:  parentId -> book_categories.id
+
+== book_conditions
+   REQ: name
+
+== book_courses
+   REQ: bookId
+   REQ: name
+   FK:  bookId -> books.id
+
+== book_departments
+   REQ: bookId
+   REQ: name
+   FK:  bookId -> books.id
+
+== book_editions
+   REQ: bookId
+   FK:  bookId -> books.id
+
+== book_favorites
+   REQ: bookId
+   REQ: userId
+   FK:  bookId -> books.id
+
+== book_files
+   REQ: bookId
+   REQ: fileType
+   REQ: fileUrl
+   FK:  bookId -> books.id
+
+== book_institutes
+   REQ: bookId
+   REQ: name
+   FK:  bookId -> books.id
+
+== book_languages
+   REQ: name
+   REQ: code
+
+== book_previews
+   REQ: bookId
+   REQ: previewUrl
+   FK:  bookId -> books.id
+
+== book_price_histories
+   REQ: bookId
+   REQ: price
+   REQ: changedAt
+   FK:  bookId -> books.id
+
+== book_publishers
+   REQ: name
+   REQ: slug
+
+== book_reading_lists
+   REQ: bookId
+   REQ: userId
+   FK:  bookId -> books.id
+
+== book_recommendations
+   REQ: bookId
+   REQ: recommendedBookId
+   FK:  bookId -> books.id
+
+== book_reviews
+   REQ: bookId
+   REQ: userId
+   REQ: rating
+   FK:  bookId -> books.id
+
+== book_semesters
+   REQ: bookId
+   REQ: name
+   FK:  bookId -> books.id
+
+== book_series
+   REQ: name
+   REQ: slug
+
+== book_subjects
+   REQ: name
+   REQ: slug
+
+== book_tags
+   REQ: name
+   REQ: slug
+
+== books
+   REQ: title
+   REQ: slug
+   FK:  authorId -> book_authors.id, publisherId -> book_publishers.id, categoryId -> book_categories.id, subjectId -> book_subjects.id, languageId -> book_languages.id, seriesId -> book_series.id, editionId -> book_editions.id
+
+== business_insights
+   REQ: insightCode
+   REQ: category
+   REQ: title
+   REQ: severity
+   REQ: generatedAt
+
+== cart_items
+   REQ: cartId
+   FK:  cartId -> shopping_carts.id
+
+== cash_flows
+   REQ: entryDate
+   REQ: flowType
+
+== chat_attachments
+   REQ: messageId
+   REQ: fileName
+   REQ: fileUrl
+   FK:  messageId -> chat_messages.id
+
+== chat_messages
+   REQ: chatId
+   REQ: senderType
+   REQ: message
+   FK:  chatId -> live_chats.id
+
+== checkouts
+   REQ: userId
+
+== commissions
+   REQ: commissionCode
+   REQ: commissionType
+
+== companies
+   REQ: companyCode
+   REQ: name
+
+== company_branches
+   REQ: companyId
+   REQ: branchCode
+   REQ: name
+   FK:  companyId -> companies.id
+
+== contact_messages
+   REQ: name
+   REQ: email
+   REQ: subject
+   REQ: message
+
+== countries
+   REQ: name
+   REQ: isoCode
+
+== crm_activities
+   REQ: adminId
+   REQ: activityType
+
+== custom_analytics
+   REQ: period
+   REQ: metric
+   REQ: value
+   REQ: generatedAt
+
+== custom_approvals
+   REQ: orderId
+   REQ: requestedBy
+   FK:  orderId -> custom_orders.id
+
+== custom_delivery_schedules
+   REQ: orderId
+   REQ: scheduledDate
+   REQ: deliveryAddress
+   REQ: scheduledBy
+   FK:  orderId -> custom_orders.id
+
+== custom_design_files
+   REQ: designId
+   REQ: fileName
+   REQ: fileUrl
+   FK:  designId -> custom_designs.id
+
+== custom_designs
+   REQ: userId
+   REQ: designName
+
+== custom_order_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== custom_order_histories
+   REQ: orderId
+   REQ: action
+   FK:  orderId -> custom_orders.id
+
+== custom_order_items
+   REQ: orderId
+   FK:  orderId -> custom_orders.id
+
+== custom_orders
+   REQ: orderCode
+   REQ: userId
+
+== custom_product_templates
+   REQ: productId
+   REQ: templateCode
+   REQ: name
+   FK:  productId -> custom_products.id
+
+== custom_production_stages
+   REQ: productionId
+   REQ: stageName
+   FK:  productionId -> custom_productions.id
+
+== custom_productions
+   REQ: orderId
+   REQ: startedBy
+   REQ: startDate
+   FK:  orderId -> custom_orders.id
+
+== custom_products
+   REQ: name
+   REQ: slug
+
+== custom_quotations
+   REQ: orderId
+   REQ: quotationCode
+   FK:  orderId -> custom_orders.id
+
+== custom_reports
+   REQ: reportCode
+   REQ: title
+
+== custom_reviews
+   REQ: userId
+   REQ: body
+   FK:  productId -> custom_products.id
+
+== custom_specifications
+   REQ: orderId
+   REQ: specificationType
+   FK:  orderId -> custom_orders.id
+
+== custom_wishlists
+   REQ: productId
+   REQ: userId
+   FK:  productId -> custom_products.id
+
+== customer_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== customer_complaints
+   REQ: complaintCode
+   REQ: customerId
+   REQ: subject
+   REQ: description
+
+== customer_feedback
+   REQ: customerId
+   REQ: rating
+
+== customer_refunds
+   REQ: refundCode
+
+== customer_rewards
+   REQ: rewardCode
+   REQ: customerId
+   REQ: title
+   REQ: pointsCost
+
+== customer_suggestions
+   REQ: customerId
+   REQ: title
+   REQ: description
+
+== customer_support_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== customer_support_reports
+   REQ: reportCode
+   REQ: title
+   REQ: generatedAt
+
+== customer_surveys
+   REQ: title
+
+== customer_tickets
+   REQ: ticketCode
+   REQ: customerId
+   REQ: subject
+   REQ: description
+   FK:  categoryId -> ticket_categories.id, priorityId -> ticket_priorities.id, statusId -> ticket_statuses.id
+
+== dashboard_widgets
+   REQ: dashboardId
+   REQ: widgetType
+   REQ: title
+   FK:  dashboardId -> dashboards.id
+
+== dashboards
+   REQ: dashboardCode
+   REQ: name
+
+== delivery_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== departments
+   REQ: instituteId
+   REQ: name
+   FK:  instituteId -> institutes.id
+
+== digital_accesses
+   REQ: contentId
+   REQ: userId
+   REQ: accessType
+   REQ: grantedAt
+   FK:  contentId -> digital_contents.id
+
+== digital_analytics
+   REQ: period
+   REQ: metric
+   REQ: value
+   REQ: generatedAt
+
+== digital_announcements
+   REQ: title
+   REQ: message
+
+== digital_authors
+   REQ: name
+   REQ: slug
+
+== digital_bookmarks
+   REQ: contentId
+   REQ: userId
+   FK:  contentId -> digital_contents.id
+
+== digital_categories
+   REQ: name
+   REQ: slug
+
+== digital_certificates
+   REQ: certificateCode
+   REQ: userId
+   REQ: issuedAt
+   FK:  examId -> digital_exams.id
+
+== digital_content_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== digital_contents
+   REQ: contentCode
+   REQ: title
+   REQ: slug
+   REQ: type
+   FK:  categoryId -> digital_categories.id, subcategoryId -> digital_sub_categories.id, authorId -> digital_authors.id, publisherId -> digital_publishers.id, courseId -> digital_courses.id, departmentId -> digital_departments.id, semesterId -> digital_semesters.id, instituteId -> digital_institutes.id
+
+== digital_courses
+   REQ: name
+   REQ: code
+
+== digital_departments
+   REQ: name
+   REQ: code
+
+== digital_downloads
+   REQ: contentId
+   REQ: userId
+   REQ: downloadedAt
+   FK:  contentId -> digital_contents.id
+
+== digital_exam_questions
+   REQ: examId
+   REQ: question
+   FK:  examId -> digital_exams.id
+
+== digital_exam_results
+   REQ: examId
+   REQ: userId
+   REQ: submittedAt
+   FK:  examId -> digital_exams.id
+
+== digital_exams
+   REQ: title
+   FK:  contentId -> digital_contents.id
+
+== digital_faqs
+   REQ: question
+   REQ: answer
+
+== digital_files
+   REQ: contentId
+   REQ: fileName
+   REQ: fileUrl
+   FK:  contentId -> digital_contents.id
+
+== digital_institutes
+   REQ: name
+
+== digital_previews
+   REQ: contentId
+   REQ: fileUrl
+   FK:  contentId -> digital_contents.id
+
+== digital_publishers
+   REQ: name
+   REQ: slug
+
+== digital_purchases
+   REQ: contentId
+   REQ: userId
+   REQ: amount
+   FK:  contentId -> digital_contents.id
+
+== digital_ratings
+   REQ: contentId
+   REQ: userId
+   REQ: rating
+   FK:  contentId -> digital_contents.id
+
+== digital_reading_histories
+   REQ: contentId
+   REQ: userId
+   REQ: lastReadAt
+   FK:  contentId -> digital_contents.id
+
+== digital_reports
+   REQ: reportCode
+   REQ: title
+
+== digital_reviews
+   REQ: contentId
+   REQ: userId
+   REQ: body
+   FK:  contentId -> digital_contents.id
+
+== digital_semesters
+   REQ: name
+
+== digital_seos
+   REQ: contentId
+   FK:  contentId -> digital_contents.id
+
+== digital_sub_categories
+   REQ: categoryId
+   REQ: name
+   REQ: slug
+   FK:  categoryId -> digital_categories.id
+
+== digital_subscriptions
+   REQ: userId
+   REQ: startDate
+   REQ: endDate
+
+== digital_versions
+   REQ: contentId
+   REQ: versionNumber
+   REQ: fileUrl
+   FK:  contentId -> digital_contents.id
+
+== digital_wishlists
+   REQ: contentId
+   REQ: userId
+   FK:  contentId -> digital_contents.id
+
+== districts
+   REQ: divisionId
+   REQ: name
+   FK:  divisionId -> divisions.id
+
+== divisions
+   REQ: countryId
+   REQ: name
+   FK:  countryId -> countries.id
+
+== email_queue
+   REQ: to
+   REQ: subject
+   REQ: body
+
+== expense_categories
+   REQ: code
+   REQ: name
+
+== expenses
+   REQ: expenseCode
+   REQ: categoryId
+   REQ: description
+   REQ: expenseDate
+   FK:  categoryId -> expense_categories.id
+
+== export_history
+   REQ: exportCode
+   REQ: reportType
+   REQ: format
+
+== faqs
+   REQ: question
+   REQ: answer
+
+== financial_analytics
+   REQ: period
+   REQ: periodType
+   REQ: generatedAt
+
+== financial_reports
+   REQ: reportCode
+   R== institutes
+   REQ: areaId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: areaId -> areas.id
+== inventories
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== agent_inventory_audits
+   REQ: storeId | uuid REQUIRED;auditDate | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== inventory_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(inventory_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== inventory_audits
+   REQ: warehouseId | uuid REQUIRED;auditDate | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== inventory_batches
+   REQ: inventoryId | uuid REQUIRED;batchNumber | character varying(varchar) REQUIRED;
+   FK: FK: inventoryId -> inventories.id
+== invoices
+   REQ: invoiceCode | character varying(varchar) REQUIRED;
+== journal_entries
+   REQ: entryCode | character varying(varchar) REQUIRED;entryDate | date REQUIRED;description | text REQUIRED;
+== knowledge_base
+   REQ: slug | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;content | text REQUIRED;
+== kpis
+   REQ: kpiCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(kpis_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== ledgers
+   REQ: journalEntryId | uuid REQUIRED;accountId | uuid REQUIRED;transactionType | USER-DEFINED(ledgers_transactiontype_enum) REQUIRED;
+   FK: FK: journalEntryId -> journal_entries.id, accountId -> accounts.id
+== live_chats
+   REQ: chatCode | character varying(varchar) REQUIRED;customerId | character varying(varchar) REQUIRED;startedAt | timestamp without time zone(timestamp) REQUIRED;
+== login_policies
+   REQ: roleId | uuid REQUIRED;
+   FK: FK: roleId -> roles.id
+== agent_inventory_batches
+   REQ: inventoryId | uuid REQUIRED;batchNumber | character varying(varchar) REQUIRED;
+   FK: FK: inventoryId -> agent_inventories.id
+== loyalty_point_history
+   REQ: customerId | character varying(varchar) REQUIRED;points | integer(int4) REQUIRED;pointType | USER-DEFINED(loyalty_point_history_pointtype_enum) REQUIRED;
+== marketing_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(marketing_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== migrations
+   REQ: timestamp | bigint(int8) REQUIRED;name | character varying(varchar) REQUIRED;
+== notification_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(notification_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== notification_templates
+   REQ: templateCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;type | USER-DEFINED(notification_templates_type_enum) REQUIRED;channel | USER-DEFINED(notification_templates_channel_enum) REQUIRED;body | text REQUIRED;
+== notifications
+   REQ: userId | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;body | text REQUIRED;type | USER-DEFINED(notifications_type_enum) REQUIRED;
+== order_addresses
+   REQ: orderId | uuid REQUIRED;type | USER-DEFINED(order_addresses_type_enum) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_analytics
+   REQ: period | character varying(varchar) REQUIRED;metric | character varying(varchar) REQUIRED;value | double precision(float8) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== order_cancels
+   REQ: orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;cancelledAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_coupons
+   REQ: orderId | uuid REQUIRED;code | character varying(varchar) REQUIRED;type | USER-DEFINED(order_coupons_type_enum) REQUIRED;
+   FK: FK: orderId -> orders.id
+== accounts
+   REQ: accountCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;accountType | USER-DEFINED(accounts_accounttype_enum) REQUIRED;
+== agent_leaves
+   REQ: agentId | uuid REQUIRED;
+   FK: FK: agentId -> agents.id
+== order_deliveries
+   REQ: orderId | uuid REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_discounts
+   REQ: orderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_exchanges
+   REQ: exchangeCode | character varying(varchar) REQUIRED;orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;reason | text REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_histories
+   REQ: orderId | uuid REQUIRED;action | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_invoices
+   REQ: orderId | uuid REQUIRED;invoiceCode | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_items
+   REQ: orderId | uuid REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_notifications
+   REQ: orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;message | text REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_packages
+   REQ: orderId | uuid REQUIRED;packageCode | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_payments
+   REQ: orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_ratings
+   REQ: orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;rating | integer(int4) REQUIRED;
+   FK: FK: orderId -> orders.id
+== agent_low_stock_alerts
+   REQ: storeId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;currentStock | integer(int4) REQUIRED;reorderLevel | integer(int4) REQUIRED;alertedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== order_refunds
+   REQ: refundCode | character varying(varchar) REQUIRED;orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_reports
+   REQ: reportCode | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;
+== order_returns
+   REQ: returnCode | character varying(varchar) REQUIRED;orderId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;reason | text REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_shipments
+   REQ: orderId | uuid REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_statuses
+   REQ: orderId | uuid REQUIRED;status | character varying(varchar) REQUIRED;changedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_taxes
+   REQ: orderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_timelines
+   REQ: orderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> orders.id
+== order_trackings
+   REQ: deliveryId | uuid REQUIRED;trackedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: deliveryId -> order_deliveries.id
+== orders
+   REQ: orderCode | character varying(varchar) REQUIRED;userId | character varying(varchar) REQUIRED;
+== payment_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(payment_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== agent_penalties
+   REQ: agentId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: agentId -> agents.id
+== payment_gateways
+   REQ: gatewayCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;provider | character varying(varchar) REQUIRED;
+== payment_methods
+   REQ: methodCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;methodType | USER-DEFINED(payment_methods_methodtype_enum) REQUIRED;
+== payment_transactions
+   REQ: transactionCode | character varying(varchar) REQUIRED;direction | USER-DEFINED(payment_transactions_direction_enum) REQUIRED;
+   FK: FK: gatewayId -> payment_gateways.id
+== payrolls
+   REQ: payrollCode | character varying(varchar) REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+== permission_groups
+   REQ: name | character varying(varchar) REQUIRED;
+== permissions
+   REQ: moduleId | uuid REQUIRED;name | character varying(varchar) REQUIRED;code | character varying(varchar) REQUIRED;
+   FK: FK: moduleId -> system_modules.id
+== print_deliveries
+   REQ: jobId | uuid REQUIRED;scheduledDate | timestamp without time zone(timestamp) REQUIRED;address | text REQUIRED;
+   FK: FK: jobId -> print_jobs.id
+== print_files
+   REQ: jobId | uuid REQUIRED;fileName | character varying(varchar) REQUIRED;fileUrl | character varying(varchar) REQUIRED;
+   FK: FK: jobId -> print_jobs.id
+== print_jobs
+   REQ: jobCode | character varying(varchar) REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: serviceId -> print_services.id
+== print_pricings
+   REQ: serviceId | uuid REQUIRED;
+   FK: FK: serviceId -> print_services.id
+== agent_performances
+   REQ: agentId | uuid REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+   FK: FK: agentId -> agents.id
+== print_services
+   REQ: serviceCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== product_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(product_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== product_attribute_values
+   REQ: attributeId | uuid REQUIRED;productId | uuid REQUIRED;value | character varying(varchar) REQUIRED;
+   FK: FK: attributeId -> product_attributes.id, productId -> products.id
+== product_attributes
+   REQ: name | character varying(varchar) REQUIRED;
+== product_barcodes
+   REQ: productId | uuid REQUIRED;barcode | character varying(varchar) REQUIRED;
+   FK: FK: productId -> products.id
+== product_brands
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== product_bundle_items
+   REQ: bundleId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;
+   FK: FK: bundleId -> product_bundles.id
+== product_bundles
+   REQ: productId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: productId -> products.id
+== product_categories
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== product_comparisons
+   REQ: userId | character varying(varchar) REQUIRED;productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== agent_product_receives
+   REQ: storeId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;receivedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== product_costs
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== product_faqs
+   REQ: productId | uuid REQUIRED;question | character varying(varchar) REQUIRED;answer | text REQUIRED;
+   FK: FK: productId -> products.id
+== product_galleries
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== product_images
+   REQ: productId | uuid REQUIRED;url | character varying(varchar) REQUIRED;
+   FK: FK: productId -> products.id
+== product_inventories
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== product_prices
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== product_ratings
+   REQ: productId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;rating | integer(int4) REQUIRED;
+   FK: FK: productId -> products.id
+== product_recommendations
+   REQ: productId | uuid REQUIRED;recommendedProductId | character varying(varchar) REQUIRED;
+   FK: FK: productId -> products.id
+== product_reviews
+   REQ: productId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;rating | integer(int4) REQUIRED;
+   FK: FK: productId -> products.id
+== product_seos
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== agent_restock_items
+   REQ: restockRequestId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: restockRequestId -> agent_restock_requests.id
+== product_subcategories
+   REQ: categoryId | uuid REQUIRED;name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+   FK: FK: categoryId -> product_categories.id
+== product_tags
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== product_variant_options
+   REQ: variantId | uuid REQUIRED;value | character varying(varchar) REQUIRED;
+   FK: FK: variantId -> product_variants.id
+== product_variants
+   REQ: productId | uuid REQUIRED;
+   FK: FK: productId -> products.id
+== product_view_histories
+   REQ: productId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;viewedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: productId -> products.id
+== product_wishlists
+   REQ: productId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: productId -> products.id
+== products
+   REQ: productCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+   FK: FK: categoryId -> product_categories.id, subcategoryId -> product_subcategories.id, brandId -> product_brands.id
+== profit_loss
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(profit_loss_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== programs
+   REQ: departmentId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: departmentId -> departments.id
+== purchase_items
+   REQ: purchaseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: purchaseId -> purchases.id
+== agent_restock_requests
+   REQ: storeId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;requestedQuantity | integer(int4) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== purchases
+   REQ: purchaseCode | character varying(varchar) REQUIRED;supplierId | uuid REQUIRED;purchaseDate | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: supplierId -> suppliers.id
+== push_notifications
+   REQ: userId | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;body | text REQUIRED;
+== reorder_rules
+   REQ: productId | character varying(varchar) REQUIRED;
+== report_templates
+   REQ: templateCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;reportType | USER-DEFINED(report_templates_reporttype_enum) REQUIRED;
+== restock_requests
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;requestedQuantity | integer(int4) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== revenue_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(revenue_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== rider_analytics
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_announcements
+   REQ: riderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_areas
+   REQ: riderId | uuid REQUIRED;areaId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id, areaId -> areas.id
+== rider_assignments
+   REQ: riderId | uuid REQUIRED;orderId | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== agent_return_stocks
+   REQ: storeId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== rider_attendances
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_availabilities
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_bonuses
+   REQ: riderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_deliveries
+   REQ: riderId | uuid REQUIRED;orderId | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_delivery_attempts
+   REQ: riderId | uuid REQUIRED;orderId | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_documents
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_earnings
+   REQ: riderId | uuid REQUIRED;orderId | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_histories
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_incidents
+   REQ: riderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_leaves
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== agent_salaries
+   REQ: agentId | uuid REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+   FK: FK: agentId -> agents.id
+== rider_location_histories
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_notifications
+   REQ: riderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_otps
+   REQ: riderId | uuid REQUIRED;otp | character varying(varchar) REQUIRED;expiresAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_penalties
+   REQ: riderId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_performances
+   REQ: riderId | uuid REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_proofs
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_ratings
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_reports
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_routes
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_settlements
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== agent_settlements
+   REQ: agentId | uuid REQUIRED;
+   FK: FK: agentId -> agents.id
+== rider_shifts
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_tracking
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_vehicles
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== rider_wallet_transactions
+   REQ: walletId | uuid REQUIRED;transactionType | USER-DEFINED(rider_wallet_transactions_transactiontype_enum) REQUIRED;
+   FK: FK: walletId -> rider_wallets.id
+== rider_wallets
+   REQ: riderId | uuid REQUIRED;
+   FK: FK: riderId -> riders.id
+== riders
+   REQ: userId | uuid REQUIRED;riderCode | character varying(varchar) REQUIRED;fullName | character varying(varchar) REQUIRED;
+   FK: FK: userId -> users.id
+== role_permissions
+   REQ: roleId | uuid REQUIRED;permissionId | uuid REQUIRED;
+   FK: FK: roleId -> roles.id, permissionId -> permissions.id
+== roles
+   REQ: name | character varying(varchar) REQUIRED;
+== salaries
+   REQ: employeeType | USER-DEFINED(salaries_employeetype_enum) REQUIRED;employeeId | character varying(varchar) REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+== sales_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(sales_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== activity_logs
+   REQ: module | character varying(varchar) REQUIRED;activity | character varying(varchar) REQUIRED;
+== agent_shelves
+   REQ: storeId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== scheduled_reports
+   REQ: templateId | uuid REQUIRED;scheduleName | character varying(varchar) REQUIRED;cronExpression | character varying(varchar) REQUIRED;
+   FK: FK: templateId -> report_templates.id
+== search_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(search_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== semesters
+   REQ: programId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: programId -> programs.id
+== shopping_carts
+   REQ: userId | character varying(varchar) REQUIRED;
+== sms_queue
+   REQ: phone | character varying(varchar) REQUIRED;message | text REQUIRED;
+== stock_adjustments
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;adjustmentType | USER-DEFINED(stock_adjustments_adjustmenttype_enum) REQUIRED;oldQuantity | integer(int4) REQUIRED;newQuantity | integer(int4) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== stock_damages
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== stock_movements
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;movementType | USER-DEFINED(stock_movements_movementtype_enum) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== stock_reservations
+   REQ: inventoryId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;reservedQuantity | integer(int4) REQUIRED;
+   FK: FK: inventoryId -> inventories.id
+== stock_returns
+   REQ: warehouseId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== agent_stock_movements
+   REQ: storeId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;movementType | USER-DEFINED(agent_stock_movements_movementtype_enum) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== stock_transfer_items
+   REQ: transferId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: transferId -> stock_transfers.id
+== stock_transfers
+   REQ: transferCode | character varying(varchar) REQUIRED;fromWarehouseId | uuid REQUIRED;toWarehouseId | uuid REQUIRED;
+   FK: FK: fromWarehouseId -> warehouses.id, toWarehouseId -> warehouses.id
+== student_institutes
+   REQ: studentId | uuid REQUIRED;instituteId | uuid REQUIRED;
+   FK: FK: studentId -> users.id, instituteId -> institutes.id
+== student_profiles
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== supplier_payments
+   REQ: paymentCode | character varying(varchar) REQUIRED;supplierId | character varying(varchar) REQUIRED;paymentDate | date REQUIRED;
+== suppliers
+   REQ: supplierCode | character varying(varchar) REQUIRED;companyName | character varying(varchar) REQUIRED;
+== support_tickets
+   REQ: ticketNumber | character varying(varchar) REQUIRED;userId | uuid REQUIRED;category | USER-DEFINED(support_tickets_category_enum) REQUIRED;subject | character varying(varchar) REQUIRED;description | text REQUIRED;
+   FK: FK: userId -> users.id
+== survey_questions
+   REQ: surveyId | uuid REQUIRED;question | character varying(varchar) REQUIRED;questionType | USER-DEFINED(survey_questions_questiontype_enum) REQUIRED;
+   FK: FK: surveyId -> customer_surveys.id
+== survey_responses
+   REQ: surveyId | uuid REQUIRED;answers | jsonb REQUIRED;submittedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: surveyId -> customer_surveys.id
+== system_modules
+   REQ: permissionGroupId | uuid REQUIRED;name | character varying(varchar) REQUIRED;code | character varying(varchar) REQUIRED;
+   FK: FK: permissionGroupId -> permission_groups.id
+== agent_stock_reservations
+   REQ: inventoryId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;reservedQuantity | integer(int4) REQUIRED;
+   FK: FK: inventoryId -> agent_inventories.id
+== system_settings
+   REQ: settingKey | character varying(varchar) REQUIRED;settingValue | text REQUIRED;
+== taxes
+   REQ: taxCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;taxType | USER-DEFINED(taxes_taxtype_enum) REQUIRED;
+== ticket_assignments
+   REQ: ticketId | uuid REQUIRED;assignedTo | character varying(varchar) REQUIRED;assignedBy | character varying(varchar) REQUIRED;assignedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: ticketId -> customer_tickets.id
+== ticket_attachments
+   REQ: ticketId | uuid REQUIRED;fileName | character varying(varchar) REQUIRED;fileUrl | character varying(varchar) REQUIRED;
+   FK: FK: ticketId -> customer_tickets.id
+== ticket_categories
+   REQ: code | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== ticket_priorities
+   REQ: code | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== ticket_replies
+   REQ: ticketId | uuid REQUIRED;message | text REQUIRED;
+   FK: FK: ticketId -> customer_tickets.id
+== ticket_statuses
+   REQ: code | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== upazilas
+   REQ: districtId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: districtId -> districts.id
+== used_book_analytics
+   REQ: period | character varying(varchar) REQUIRED;metric | character varying(varchar) REQUIRED;value | double precision(float8) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== agent_stock_transfer_items
+   REQ: transferId | uuid REQUIRED;productId | character varying(varchar) REQUIRED;quantity | integer(int4) REQUIRED;
+   FK: FK: transferId -> agent_stock_transfers.id
+== used_book_approvals
+   REQ: itemId | uuid REQUIRED;requestedBy | character varying(varchar) REQUIRED;
+   FK: FK: itemId -> used_book_items.id, offerId -> used_book_offers.id
+== used_book_audits
+   REQ: module | character varying(varchar) REQUIRED;action | character varying(varchar) REQUIRED;
+== used_book_condition_reports
+   REQ: itemId | uuid REQUIRED;reportNumber | character varying(varchar) REQUIRED;overallGrade | USER-DEFINED(used_book_condition_reports_overallgrade_enum) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_evaluations
+   REQ: itemId | uuid REQUIRED;evaluatedBy | character varying(varchar) REQUIRED;conditionGrade | USER-DEFINED(used_book_evaluations_conditiongrade_enum) REQUIRED;estimatedPrice | double precision(float8) REQUIRED;evaluatedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_histories
+   REQ: action | character varying(varchar) REQUIRED;
+   FK: FK: requestId -> used_book_sell_requests.id, itemId -> used_book_items.id
+== used_book_images
+   REQ: itemId | uuid REQUIRED;imageUrl | character varying(varchar) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_inspections
+   REQ: itemId | uuid REQUIRED;inspectedBy | character varying(varchar) REQUIRED;inspectionDate | timestamp without time zone(timestamp) REQUIRED;conditionGrade | USER-DEFINED(used_book_inspections_conditiongrade_enum) REQUIRED;decision | USER-DEFINED(used_book_inspections_decision_enum) REQUIRED;inspectedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_inventories
+   REQ: itemId | uuid REQUIRED;receivedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_items
+   REQ: requestId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: requestId -> used_book_sell_requests.id
+== used_book_offers
+   REQ: itemId | uuid REQUIRED;offerAmount | double precision(float8) REQUIRED;offeredBy | character varying(varchar) REQUIRED;offeredAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== agent_stock_transfers
+   REQ: transferCode | character varying(varchar) REQUIRED;fromStoreId | uuid REQUIRED;toStoreId | uuid REQUIRED;
+   FK: FK: fromStoreId -> agent_stores.id, toStoreId -> agent_stores.id
+== used_book_payments
+   REQ: requestId | uuid REQUIRED;sellerId | character varying(varchar) REQUIRED;amount | double precision(float8) REQUIRED;
+   FK: FK: requestId -> used_book_sell_requests.id
+== used_book_pickups
+   REQ: requestId | uuid REQUIRED;scheduledAt | timestamp without time zone(timestamp) REQUIRED;address | text REQUIRED;scheduledBy | character varying(varchar) REQUIRED;
+   FK: FK: requestId -> used_book_sell_requests.id
+== used_book_pricings
+   REQ: itemId | uuid REQUIRED;sellingPrice | double precision(float8) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_reject_reasons
+   REQ: code | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== used_book_repairs
+   REQ: itemId | uuid REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_resales
+   REQ: itemId | uuid REQUIRED;listingCode | character varying(varchar) REQUIRED;listedBy | character varying(varchar) REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_returns
+   REQ: itemId | uuid REQUIRED;
+   FK: FK: itemId -> used_book_items.id
+== used_book_sell_requests
+   REQ: requestCode | character varying(varchar) REQUIRED;userId | character varying(varchar) REQUIRED;
+== used_book_settlements
+   REQ: requestId | uuid REQUIRED;sellerId | character varying(varchar) REQUIRED;amount | double precision(float8) REQUIRED;
+   FK: FK: requestId -> used_book_sell_requests.id
+== user_activities
+   REQ: userId | uuid REQUIRED;activity | USER-DEFINED(user_activities_activity_enum) REQUIRED;
+   FK: FK: userId -> users.id
+== agent_store_closings
+   REQ: storeId | uuid REQUIRED;closingDate | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: storeId -> agent_stores.id
+== user_activity_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(user_activity_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== user_addresses
+   REQ: userId | uuid REQUIRED;receiverName | character varying(varchar) REQUIRED;receiverPhone | character varying(varchar) REQUIRED;
+   FK: FK: userId -> users.id
+== user_attachments
+   REQ: userId | uuid REQUIRED;fileName | character varying(varchar) REQUIRED;fileType | character varying(varchar) REQUIRED;fileUrl | character varying(varchar) REQUIRED;fileSize | integer(int4) REQUIRED;
+   FK: FK: userId -> users.id
+== user_devices
+   REQ: userId | uuid REQUIRED;deviceId | character varying(varchar) REQUIRED;
+   FK: FK: userId -> users.id
+== user_identity_verifications
+   REQ: userId | uuid REQUIRED;documentType | USER-DEFINED(user_identity_verifications_documenttype_enum) REQUIRED;documentNumber | character varying(varchar) REQUIRED;frontImage | character varying(varchar) REQUIRED;
+   FK: FK: userId -> users.id
+== user_login_histories
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== user_notification_settings
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== user_otps
+   REQ: otp | character varying(varchar) REQUIRED;purpose | USER-DEFINED(user_otps_purpose_enum) REQUIRED;expiresAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: userId -> users.id
+== user_permissions
+   REQ: userId | uuid REQUIRED;permissionId | uuid REQUIRED;
+   FK: FK: userId -> users.id, permissionId -> permissions.id
+== user_preferences
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== agent_store_expense_categories
+   REQ: name | character varying(varchar) REQUIRED;
+== user_profiles
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== user_roles
+   REQ: userId | uuid REQUIRED;roleId | uuid REQUIRED;
+   FK: FK: userId -> users.id, roleId -> roles.id
+== user_securities
+   REQ: userId | uuid REQUIRED;
+   FK: FK: userId -> users.id
+== user_sessions
+   REQ: userId | uuid REQUIRED;accessToken | text REQUIRED;refreshToken | text REQUIRED;expiresAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: userId -> users.id
+== user_tokens
+   REQ: userId | uuid REQUIRED;token | character varying(varchar) REQUIRED;tokenType | USER-DEFINED(user_tokens_tokentype_enum) REQUIRED;expiresAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: userId -> users.id
+== users
+   REQ: userCode | character varying(varchar) REQUIRED;firstName | character varying(varchar) REQUIRED;lastName | character varying(varchar) REQUIRED;fullName | character varying(varchar) REQUIRED;phone | character varying(varchar) REQUIRED;password | character varying(varchar) REQUIRED;
+== vendor_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(vendor_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== wallet_transactions
+   REQ: walletId | uuid REQUIRED;transactionType | USER-DEFINED(wallet_transactions_transactiontype_enum) REQUIRED;
+   FK: FK: walletId -> wallets.id
+== wallets
+   REQ: walletCode | character varying(varchar) REQUIRED;walletType | USER-DEFINED(wallets_wallettype_enum) REQUIRED;
+== warehouse_shelves
+   REQ: warehouseId | uuid REQUIRED;shelfCode | character varying(varchar) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id, zoneId -> warehouse_zones.id
+== agent_store_expenses
+   REQ: storeId | uuid REQUIRED;expenseDate | date REQUIRED;
+   FK: FK: storeId -> agent_stores.id, categoryId -> agent_store_expense_categories.id
+== warehouse_zones
+   REQ: warehouseId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: warehouseId -> warehouses.id
+== warehouses
+   REQ: warehouseCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: areaId -> areas.id
+== agent_stores
+   REQ: agentId | uuid REQUIRED;storeName | character varying(varchar) REQUIRED;
+   FK: FK: agentId -> agents.id, areaId -> areas.id
+== agent_targets
+   REQ: agentId | uuid REQUIRED;month | integer(int4) REQUIRED;year | integer(int4) REQUIRED;
+   FK: FK: agentId -> agents.id
+== admin_activities
+   REQ: adminId | character varying(varchar) REQUIRED;module | character varying(varchar) REQUIRED;action | character varying(varchar) REQUIRED;
+== agent_wallet_transactions
+   REQ: walletId | uuid REQUIRED;transactionType | USER-DEFINED(agent_wallet_transactions_transactiontype_enum) REQUIRED;
+   FK: FK: walletId -> agent_wallets.id
+== agent_wallets
+   REQ: agentId | uuid REQUIRED;
+   FK: FK: agentId -> agents.id
+== agents
+   REQ: userId | uuid REQUIRED;agentCode | character varying(varchar) REQUIRED;fullName | character varying(varchar) REQUIRED;
+   FK: FK: userId -> users.id
+== announcements
+   REQ: title | character varying(varchar) REQUIRED;message | text REQUIRED;audience | USER-DEFINED(announcements_audience_enum) REQUIRED;
+== approval_levels
+   REQ: name | character varying(varchar) REQUIRED;
+== approval_workflows
+   REQ: module | character varying(varchar) REQUIRED;referenceId | character varying(varchar) REQUIRED;approvalLevelId | uuid REQUIRED;requestedBy | character varying(varchar) REQUIRED;
+   FK: FK: approvalLevelId -> approval_levels.id
+== area_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(area_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== area_coverages
+   REQ: areaId | uuid REQUIRED;agentId | character varying(varchar) REQUIRED;
+   FK: FK: areaId -> areas.id
+== areas
+   REQ: upazilaId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: upazilaId -> upazilas.id
+== audit_logs
+   REQ: module | character varying(varchar) REQUIRED;action | character varying(varchar) REQUIRED;
+== agent_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(agent_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== audit_reports
+   REQ: reportCode | character varying(varchar) REQUIRED;periodStart | date REQUIRED;periodEnd | date REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== balance_sheets
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(balance_sheets_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== bank_accounts
+   REQ: accountCode | character varying(varchar) REQUIRED;bankName | character varying(varchar) REQUIRED;accountName | character varying(varchar) REQUIRED;accountNumber | character varying(varchar) REQUIRED;
+== barcodes
+   REQ: productId | character varying(varchar) REQUIRED;barcode | character varying(varchar) REQUIRED;
+== bi_order_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(bi_order_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== bi_rider_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(bi_rider_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== bi_used_book_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(bi_used_book_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== book_authors
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== book_categories
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+   FK: FK: parentId -> book_categories.id
+== book_conditions
+   REQ: name | character varying(varchar) REQUIRED;
+== agent_announcements
+   REQ: agentId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: agentId -> agents.id
+== book_courses
+   REQ: bookId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_departments
+   REQ: bookId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_editions
+   REQ: bookId | uuid REQUIRED;
+   FK: FK: bookId -> books.id
+== book_favorites
+   REQ: bookId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_files
+   REQ: bookId | uuid REQUIRED;fileType | USER-DEFINED(book_files_filetype_enum) REQUIRED;fileUrl | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_institutes
+   REQ: bookId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_languages
+   REQ: name | character varying(varchar) REQUIRED;code | character varying(varchar) REQUIRED;
+== book_previews
+   REQ: bookId | uuid REQUIRED;previewUrl | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_price_histories
+   REQ: bookId | uuid REQUIRED;price | double precision(float8) REQUIRED;changedAt | timestamp without time zone(timestamp) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_publishers
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== agent_areas
+   REQ: agentId | uuid REQUIRED;areaId | uuid REQUIRED;
+   FK: FK: agentId -> agents.id, areaId -> areas.id
+== book_reading_lists
+   REQ: bookId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_recommendations
+   REQ: bookId | uuid REQUIRED;recommendedBookId | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_reviews
+   REQ: bookId | uuid REQUIRED;userId | character varying(varchar) REQUIRED;rating | integer(int4) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_semesters
+   REQ: bookId | uuid REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: bookId -> books.id
+== book_series
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== book_subjects
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== book_tags
+   REQ: name | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+== books
+   REQ: title | character varying(varchar) REQUIRED;slug | character varying(varchar) REQUIRED;
+   FK: FK: authorId -> book_authors.id, publisherId -> book_publishers.id, categoryId -> book_categories.id, subjectId -> book_subjects.id, languageId -> book_languages.id, seriesId -> book_series.id, editionId -> book_editions.id
+== business_insights
+   REQ: insightCode | character varying(varchar) REQUIRED;category | character varying(varchar) REQUIRED;title | character varying(varchar) REQUIRED;severity | USER-DEFINED(business_insights_severity_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== cart_items
+   REQ: cartId | uuid REQUIRED;
+   FK: FK: cartId -> shopping_carts.id
+== agent_attendances
+   REQ: agentId | uuid REQUIRED;
+   FK: FK: agentId -> agents.id
+== cash_flows
+   REQ: entryDate | date REQUIRED;flowType | USER-DEFINED(cash_flows_flowtype_enum) REQUIRED;
+== chat_attachments
+   REQ: messageId | uuid REQUIRED;fileName | character varying(varchar) REQUIRED;fileUrl | character varying(varchar) REQUIRED;
+   FK: FK: messageId -> chat_messages.id
+== chat_messages
+   REQ: chatId | uuid REQUIRED;senderType | USER-DEFINED(chat_messages_sendertype_enum) REQUIRED;message | text REQUIRED;
+   FK: FK: chatId -> live_chats.id
+== checkouts
+   REQ: userId | character varying(varchar) REQUIRED;
+== commissions
+   REQ: commissionCode | character varying(varchar) REQUIRED;commissionType | USER-DEFINED(commissions_commissiontype_enum) REQUIRED;
+== companies
+   REQ: companyCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+== company_branches
+   REQ: companyId | uuid REQUIRED;branchCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: companyId -> companies.id
+== contact_messages
+   REQ: name | character varying(varchar) REQUIRED;email | character varying(varchar) REQUIRED;subject | character varying(varchar) REQUIRED;message | text REQUIRED;
+== countries
+   REQ: name | character varying(varchar) REQUIRED;isoCode | character varying(varchar) REQUIRED;
+== crm_activities
+   REQ: adminId | character varying(varchar) REQUIRED;activityType | character varying(varchar) REQUIRED;
+== agent_bonuses
+   REQ: agentId | uuid REQUIRED;title | character varying(varchar) REQUIRED;
+   FK: FK: agentId -> agents.id
+== custom_analytics
+   REQ: period | character varying(varchar) REQUIRED;metric | character varying(varchar) REQUIRED;value | double precision(float8) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== custom_approvals
+   REQ: orderId | uuid REQUIRED;requestedBy | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> custom_orders.id
+== custom_delivery_schedules
+   REQ: orderId | uuid REQUIRED;scheduledDate | timestamp without time zone(timestamp) REQUIRED;deliveryAddress | text REQUIRED;scheduledBy | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> custom_orders.id
+== custom_design_files
+   REQ: designId | uuid REQUIRED;fileName | character varying(varchar) REQUIRED;fileUrl | character varying(varchar) REQUIRED;
+   FK: FK: designId -> custom_designs.id
+== custom_designs
+   REQ: userId | character varying(varchar) REQUIRED;designName | character varying(varchar) REQUIRED;
+== custom_order_analytics
+   REQ: period | character varying(varchar) REQUIRED;periodType | USER-DEFINED(custom_order_analytics_periodtype_enum) REQUIRED;generatedAt | timestamp without time zone(timestamp) REQUIRED;
+== custom_order_histories
+   REQ: orderId | uuid REQUIRED;action | character varying(varchar) REQUIRED;
+   FK: FK: orderId -> custom_orders.id
+== custom_order_items
+   REQ: orderId | uuid REQUIRED;
+   FK: FK: orderId -> custom_orders.id
+== custom_orders
+   REQ: orderCode | character varying(varchar) REQUIRED;userId | character varying(varchar) REQUIRED;
+== custom_product_templates
+   REQ: productId | uuid REQUIRED;templateCode | character varying(varchar) REQUIRED;name | character varying(varchar) REQUIRED;
+   FK: FK: productId -> custom_products.id

@@ -30,7 +30,10 @@ export class UserOTP {
   @Column({ nullable: true })
   userId?: string;
 
-  @ManyToOne(() => User, (user) => user.otps, { onDelete: 'CASCADE', nullable: true })
+  @ManyToOne(() => User, (user) => user.otps, {
+    onDelete: 'CASCADE',
+    nullable: true,
+  })
   @JoinColumn({ name: 'userId' })
   user?: User;
 

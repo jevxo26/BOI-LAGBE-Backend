@@ -29,7 +29,9 @@ export class UserIdentityVerification {
   @Column()
   userId: string;
 
-  @OneToOne(() => User, (user) => user.identityVerification, { onDelete: 'CASCADE' })
+  @OneToOne(() => User, (user) => user.identityVerification, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'userId' })
   user: User;
 

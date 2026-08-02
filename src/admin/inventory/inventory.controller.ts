@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Query,
+  Req,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { InventoryService } from './inventory.service';
 import { AdminOnly } from '../common/decorators/admin-only.decorator';
 import type { AdminRequest } from '../common/interfaces/admin-request.interface';
@@ -11,6 +21,8 @@ import { CreateInventoryAuditDto } from './dto/create-inventory-audit.dto';
 // All inventory oversight routes require authentication (global
 // StrictJwtAuthGuard) AND the ADMIN or SUPER_ADMIN role (@AdminOnly).
 // Never add @Public() here.
+@ApiTags('Admin - Inventory')
+@ApiBearerAuth()
 @Controller('admin/inventory')
 @AdminOnly()
 export class InventoryController {
@@ -28,7 +40,7 @@ export class InventoryController {
 
   @Post('restock-requests/:id/approve')
   async approveRestockRequest(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ApproveRestockRequestDto,
     @Req() req: AdminRequest,
   ) {
@@ -37,7 +49,7 @@ export class InventoryController {
 
   @Post('transfers/:id/approve')
   async approveStockTransfer(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: ApproveStockTransferDto,
     @Req() req: AdminRequest,
   ) {

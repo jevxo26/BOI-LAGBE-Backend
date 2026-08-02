@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from '../../auth/entities';
 import { Area } from '../areas/entities';
 import { RidersController } from './riders.controller';
 import { RidersService } from './riders.service';
@@ -69,6 +70,7 @@ import {
       RiderHistory,
       RiderAnalytics,
       RiderReport,
+      User,
       Area,
     ]),
   ],
